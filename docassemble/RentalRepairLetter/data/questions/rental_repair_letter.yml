@@ -15,7 +15,6 @@ objects:
   - users: ALPeopleList.using(there_are_any=True, complete_attribute=['complete'])
   - rental_property: ALAddress
   - landlord: ALIndividual
-
 ---
 code: |
   ilao_easy_form_title = "Rental repair letter"
@@ -447,7 +446,7 @@ depends on:
   - rental_property.city
   - emergency_check
 code: |
-  if tenant_caused or is_excluded_dwelling:
+  if tenant_caused or is_excluded_dwelling or utility_issue:
     has_an_ordinance = False
   elif rental_property.city.lower() == "urbana" or rental_property.city.lower() == "evanston":
     has_an_ordinance = True
@@ -517,7 +516,7 @@ subquestion: |
 
   If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed.
 
-  **Note:** This option has specific requirements that could affect your rental agreement. If you are interested in this option, we recommend you talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
+  **Note:** This option has specific requirements that could affect your rental agreement. If you are interested in this option, we recommend you talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 ---
 id: evanston info
 continue button field: evanston_info
@@ -557,11 +556,11 @@ question: |
 subquestion: |
   If the issue does not involve a disruption of essential services and your landlord does not repair the issue within 14 days, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. This deduction can be as high as $500 or half your monthly rent, whichever is less.
 
-  If the issue involves a disruption of essential services and your landlord does not repair it within 36 hours, you will be able to hire a repairperson yourself and deduct the entire cost of that repair from your rent. 
+  If the issue involves a disruption of essential services and your landlord does not repair it within 36 hours, you will be able to hire a repairperson yourself and deduct the entire cost of that repair from your rent.
 
-  Alternatively, you can hold back a portion of the rent that reflects the reduced value of the rental unit. If you are interested in pursuing this option, you should talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
+  Alternatively, you can hold back a portion of the rent that reflects the reduced value of the rental unit. If you are interested in pursuing this option, you should talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 
-  If the issue involves a disruption to essential services, you also have the option to obtain substitute housing. If you do so, you would be exempted from paying rent during this time and you could recover some of the cost of the substitute housing. If you are interested in pursuing this option, you should talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
+  If the issue involves a disruption to essential services, you also have the option to obtain substitute housing. If you do so, you would be exempted from paying rent during this time and you could recover some of the cost of the substitute housing. If you are interested in pursuing this option, you should talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 ---
 id: cook county info
 continue button field: cook_info
@@ -582,7 +581,7 @@ subquestion: |
   Cook County laws give you more options than just repairing and deducting.
 
   * You could pay a reduced monthly rent that reflects how much the issue has lowered the value of your apartment.
-  * You could end the rental agreement if your landlord does not make the necessary repairs within 14 days. If you do so, you would have to move out either within a month or by the end of the next rental period, whichever is later.
+  * You could end the rental agreement if your landlord does not make the necessary repairs within 14 days. If you do so, you would have to move out either within a month or by the end of the next rental period, whichever is later.
   * If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed. You may be able to recover some of the cost of the substitute housing from your landlord.
 
   **Note:** These options have specific requirements that could affect your rental agreement. If you are interested in these options, we recommend you talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
@@ -690,7 +689,11 @@ content: |
 ---
 id: landlord address
 question: |
+  % if unknown_landlord:
+  What is your landlord's address?
+  % else:
   What is ${landlord.name.full(middle='full')}'s address?
+  % endif
 subquestion: |
   Their address may be listed on your lease.
 fields:
@@ -738,18 +741,21 @@ fields:
       users[0].name_fields()
 ---
 id: your contact information
-generic object: ALIndividual
 question: |
   What is your contact information?
 subquestion: |
+  % if unknown_landlord:
+  If you do not want to include this information in your letter, you can leave these fields blank. However, your landlord may have a harder time contacting you without this information. This could slow down the repair process.
+  % else:
   If you do not want to include this information in your letter, you can leave these fields blank. However, ${landlord.name.full(middle='full')} may have a harder time contacting you without this information. This could slow down the repair process.
-
+  % endif
+  
   ${ collapse_template(contact_info_help) }  
 fields:  
-  - Phone number: x.phone_number
+  - Phone number: users[0].phone_number
     datatype: al_international_phone
     required: False  
-  - Email address: x.email    
+  - Email address: users[0].email    
     datatype: email
     required: False
     help: |
@@ -784,9 +790,9 @@ question: |
   Sending your letter
 subquestion: |
   % if ordinance_check == "illinois":
-  You will need to send this letter by certified mail. Learn more about [**certified mail**](faq.usps.com/s/article/How-Can-I-Use-Domestic-Certified-Mail).
+  You will need to send this letter by certified mail. Learn more about [**certified mail**](https://faq.usps.com/s/article/Certified-Mail-The-Basics).
   % else:
-  You should send a copy of your letter by certified mail so you have a record of when it was sent. Learn more about [**certified mail**](faq.usps.com/s/article/How-Can-I-Use-Domestic-Certified-Mail)
+  You should send a copy of your letter by certified mail so you have a record of when it was sent. Learn more about [**certified mail**](https://faq.usps.com/s/article/Certified-Mail-The-Basics).
   % endif
 
   Certified mail can take a few days so you may want to deliver a copy of your letter in person or by email.
@@ -849,6 +855,122 @@ code: |
     deduction_amount = "as much as $500 or half one month's rent, whichever is greater, from your rent"
   else:
     deduction_amount = "as much as $500 or half your monthly rent, whichever is less, from your rent"
+---
+depends on:
+  - has_an_ordinance
+  - rental_property.city
+  - rental_property.county
+  - emergency_issue
+  - essential_services
+  - which_ordinance
+code: |
+  repair_or_inspect_text = ""
+  reduced_value_text = ""
+  sub_housing_text = ""
+  termination_text = ""
+  
+  if has_an_ordinance:
+    if rental_property.city.lower() == "dekalb" and not emergency_issue:
+      repair_or_inspect_text = "I could contact the City of DeKalb's Code Enforcement Division and request that an inspector come to the apartment. According to the City of DeKalb’s municipal code, the inspector may require you to repair the issue."
+    elif rental_property.city.lower() != "mount prospect" or essential_services:
+      repair_or_inspect_text = "I could hire a professional to repair the problem(s). Please note that if I do so, I will send you the paid bill. According to "
+      repair_or_inspect_text += which_ordinance
+      if rental_property.city.lower() == "chicago":
+        if emergency_issue or essential_services:
+          repair_or_inspect_text += ", I may be able to deduct the cost of the repair from my rent payment."
+        else:
+          repair_or_inspect_text += ", I may be able to deduct up to either $500 or one month's rent, whichever is greater, from my rent payment."
+      elif rental_property.city.lower() == "dekalb":
+        repair_or_inspect_text += ", you will have 30 days to reimburse me for reasonable expenses I have incurred once I present you with the bill."
+      elif rental_property.city.lower() == "evanston":
+        if essential_services:
+          repair_or_inspect_text += ", I may be able to deduct the entire cost of the repair from my rent payments."
+        else:
+          repair_or_inspect_text += ", I may be able to deduct up to either $200 or half of one month’s rent, whichever is greater, from my rent payment."
+      elif rental_property.city.lower() == "mount prospect" and essential_services:
+        repair_or_inspect_text += ", I may be able to deduct the entire cost of the repair from my rent payment."
+      elif rental_property.city.lower() == "oak park":
+        if essential_services:
+          repair_or_inspect_text += ", I may be able to deduct the cost of the repair from my rent payment."
+        else:
+          repair_or_inspect_text += ", I may be able to deduct as much as $500 or half my monthly rent, whichever is greater, from my rent payment."
+      elif rental_property.city.lower() == "urbana":
+        repair_or_inspect_text += ", I may be able to deduct the cost of the repair from my rent payments."  
+      elif rental_property.county.lower() == "cook":
+        if essential_services:
+          repair_or_inspect_text += ", I may be able to deduct the entire cost of the repair from my rent payments."
+        else:
+          repair_or_inspect_text += ", I may be able to deduct as much as $500 or half my monthly rent, whichever is greater, from my rent payment."
+      else:
+        repair_or_inspect_text += ", I may be able to deduct as much as $500 or half my monthly rent, whichever is less, from my rent payment."
+
+  if has_an_ordinance:
+    if rental_property.city.lower() == "chicago":
+      reduced_value_text = "I could withhold from my monthly rent payment an amount that reasonably reflects the reduced value of the property."
+    elif rental_property.city.lower() == "evanston":
+      if essential_services:
+        reduced_value_text = "If you do not make the repairs within 14 days, I could withhold from my monthly rent payment an amount that reasonably reflects the reduced value of the property."
+      else:
+        reduced_value_text = "I could withhold from my monthly rent payment an amount that reasonably reflects the reduced value of the property."
+    elif rental_property.city.lower() == "mount prospect":
+      reduced_value_text = "If you do not make the repairs within 7 days, I could withhold from my monthly rent payment an amount that reasonably reflects the reduced value of the property and is no more than 75% of the rent."
+    elif rental_property.city.lower() == "oak park":
+      if essential_services:
+        reduced_value_text = "If you do not make the repairs within 24 hours, I could withhold from my monthly rent payment an amount that reasonably reflects the reduced value of the property."
+      else:
+        reduced_value_text = "If you do not make the repairs within 14 days, I could withhold from my monthly rent payment an amount that reasonably reflects the reduced value of the property."
+    elif rental_property.county.lower() == "cook":
+      reduced_value_text = "I could withhold from my monthly rent payment an amount that reasonably reflects the reduced value of the property."
+
+  if has_an_ordinance and essential_services:
+    if rental_property.city.lower() == "chicago":
+      sub_housing_text = "I could find substitute housing. If I do, I would be exempted from paying rent until the issue is fixed. Additionally, I may recover some of the cost of the substitute housing from you. This recovery could be no more than one month's rent per month."
+    elif rental_property.city.lower() == "evanston":
+      sub_housing_text = "I could find substitute housing. If I do, I would be exempted from paying rent until the issue is fixed. Additionally, I may recover the cost of the substitute housing up to an amount equal to the monthly rent and reasonable attorney fees."
+    elif rental_property.city.lower() == "mount prospect":
+      sub_housing_text = "I could find substitute housing. If I do, I would be exempted from paying rent until the issue is fixed. Additionally, I may recover the cost of the substitute housing up to an amount equal to the monthly rent."
+    elif rental_property.city.lower() == "oak park":
+      sub_housing_txt = "I could find substitute housing.  If I do, I would be exempted from paying rent until the issue is fixed. Additionally, I may recover the cost of the substitute housing up to an amount equal to the monthly rent and reasonable fees."
+    elif rental_property.county.lower() == "cook":
+      sub_housing_text = "I could find substitute housing.  If I do, I would be exempted from paying rent until the issue is fixed. Additionally, I may recover the cost of the substitute housing up to an amount equal to the monthly rent and reasonable fees."
+    elif rental_property.city.lower() == "urbana":
+      sub_housing_text = "I could find substitute housing. If I do, I could deduct the average cost for a hotel//motel room in Urbana from my rent payment."
+
+  if has_an_ordinance:
+    if rental_property.city.lower() == "chicago":
+      if essential_services and emergency_check:
+        termination_text = "I could terminate the rental agreement if you do not repair the issue within 72 hours. If, at that time, I choose to terminate the agreement, I would vacate the property within 30 days. If I do not vacate the property by then, the rental agreement shall remain in effect."
+      elif essential_services:
+        termination_text = "I could terminate the rental agreement. If I terminate the agreement, I would notify you and then vacate the property within 30 days. If I do not vacate the property by then, the rental agreement shall remain in effect."
+    elif rental_property.city.lower() == "evanston":
+      if essential_services:
+        termination_text = "I could terminate the rental agreement. If I were to do so, I would provide you with written notice, at which point the agreement would terminate if essential services are not restored within 7 days."
+      else:
+        termination_text = "I could terminate the rental agreement. If I were to do so, I would provide you with written notice, at which point the agreement would terminate if you do not repair the issue within 30 days."
+    elif rental_property.city.lower() == "oak park":
+      if essential_services:
+        termination_text = "I could terminate the rental agreement if you do not repair the issue within 72 hours. If, at that time, I choose to terminate the agreement, I would vacate the property within 30 days or by the end of the next rental period, whichever is longer. If I do not vacate the property by then, the rental agreement shall remain in effect. If I vacate the property, you may be required to return my security deposit."
+      else:
+        termination_text = "I could terminate the rental agreement if you do not repair the issue within 14 days. If, at that time, I choose to terminate the agreement, I would vacate the property within 30 days or by the end of the next rental period, whichever is longer . If I do not vacate the property by then, the rental agreement shall remain in effect. If I vacate the property, you may be required to return my security deposit."
+		elif rental_property.county.lower() == "cook" and rental_property.city != "mount prospect":
+      if essential_services:
+        termination_text = "I could terminate the rental agreement if you do not repair the issue within 72 hours. If, at that time, I choose to terminate the agreement, I would vacate the property either within one month or by the end of the next rental period, whichever is later. If I do not vacate the property by then, the rental agreement shall remain in effect."
+      else:
+        termination_text = "I could terminate the rental agreement if you do not repair the issue within 14 days. If, at that time, I choose to terminate the agreement, I would vacate the property either within one month or by the end of the next rental period, whichever is later. If I do not vacate the property by then, the rental agreement shall remain in effect."
+
+  option_count = 0
+  if repair_or_inspect_text != "":
+    option_count += 1
+  if reduced_value_text != "":
+    option_count += 1
+  if sub_housing_text != "":
+    option_count += 1
+  if termination_text != "":
+    option_count += 1
+  if option_count == 1:
+    option_options = "option"
+  else:
+    option_options = "options"
 ---
 id: dekalb routine after
 continue button field: dekalb_routine_after
@@ -915,3 +1037,27 @@ content: |
   Thanks for using ILAO Easy Forms!
   
   [Illinois Legal Aid Online](https://www.illinoislegalaid.org)
+---
+objects:
+  - instructions: ALDocument.using(title="Instructions", filename="instructions.pdf", has_addendum=False, enabled=True)
+  - letter: ALDocument.using(title="Rental Repair Letter", filename="rental_repair_letter.pdf", has_addendum=False, enabled=True)
+---
+objects:
+  - al_user_bundle: ALDocumentBundle.using(elements=[instructions, letter], filename="rental_repair_letter.pdf", title="All forms")
+---
+code: |
+  instructions.enabled = True
+  letter.enabled = True
+---
+attachment:
+  - name: instructions
+    variable name: instructions[i]
+    filename: instructions
+    docx template file: repair_request_letter_instructions.docx
+---
+attachment:
+  - name: letter
+    variable name: letter[i]
+    filename: letter
+    docx template file: rental_repair_letter.docx
+---
