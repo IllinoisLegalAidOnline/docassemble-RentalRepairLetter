@@ -46,6 +46,9 @@ code: |
   nav.set_section('section_property')
   emergency_check
   rental_property.address
+  if rental_property.state != "IL":
+    out_of_state_kickout
+  set_progress(20)
   if not live_in_property:
     reside_kickout
   
@@ -60,10 +63,13 @@ code: |
       elif rental_property.city.lower() != "urbana" and rental_property.city.lower() != "evanston":
         if units == "lower":
           landlord_resident
-  
+
+  set_progress(40)
   if utility_issue:
     utility_note
 
+  ordinance_code_block
+  deduction_code_block
   if has_an_ordinance:
     applicable_law 
     if rental_property.city.lower() == "urbana":
@@ -91,6 +97,7 @@ code: |
   else:
     generic_letter
 
+  set_progress(60)
   nav.set_section('section_repair')
   utility_code
   repairs_needed
@@ -100,6 +107,7 @@ code: |
   if unknown_address:
     without_an_address
   users[0].name.first
+  set_progress(80)
   users[0].phone_number
   delivery_date
   sending_your_letter
@@ -111,6 +119,7 @@ code: |
     generic_after
 
   nav.set_section('section_download')
+  set_progress(100)
   forms_assembling
   snapshot_forms
   set_progress(100)
@@ -227,11 +236,6 @@ subquestion: |
 fields:
   - no label: emergency_check
     datatype: yesnoradio
-validation code: |
-  if emergency_check:
-    emergency_issue = True
-  else:
-    emergency_issue = False
 ---
 id: rental property address
 question: |
@@ -258,6 +262,20 @@ subject: |
 content: |  
   You can use this **[City-to-County Finder](https://www.statsamerica.org/CityCountyFinder/)** to find the county.
 ---
+id: out of state kickout
+event: out_of_state_kickout
+question: |
+  Sorry
+subquestion: |
+  You can only use this program for a rental property in Illinois.
+
+  If the rental property is not in Illinois, use [**the Legal Services Corporation's legal help page**](https://www.lsc.gov/about-lsc/what-legal-aid/get-legal-help) to find a legal aid organization near you.
+
+  If you made a mistake, you can click the **Back** button or **Restart** the interview.
+buttons:
+  - Exit: exit
+  - Restart: restart
+---
 id: live in property
 question: |
   Do you live at ${rental_property.on_one_line(bare=True)}?
@@ -273,7 +291,6 @@ subquestion: |
   This program is only intended for use by renters who live in the property needing repairs. You may want to [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help).
 
   Click **Back** if you made a mistake. Or you can talk with a lawyer to discuss your options. Use **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)** to find free or low-cost legal services in your area.
-
 buttons:
   - Exit: exit
   - Restart: restart
@@ -409,8 +426,10 @@ depends on:
   - has_an_ordinance
   - units
   - landlord_resident
+#reconsider: True
 code: |
   apply_applies = "applies"
+  ordinance_check = "Value not set"
   if has_an_ordinance:
     if rental_property.city.lower() == "chicago":
       which_ordinance = "the City of Chicago’s Residential Landlord Tenant Ordinance"
@@ -425,25 +444,27 @@ code: |
       which_ordinance = "Oak Park's Residential Tenant and Landlord Ordinance" 
       ordinance_check = "oak park"
     elif rental_property.city.lower() == "mount prospect":
-      which_ordinance = " the Residential Landlord and Tenant Regulations of the Mount Prospect Village Code"
+      which_ordinance = "the Residential Landlord and Tenant Regulations of the Mount Prospect Village Code"
       ordinance_check = "mount prospect"
     elif rental_property.city.lower() == "dekalb":
-      which_ordinance == "the City of DeKalb’s municipal code"
+      which_ordinance = "the City of DeKalb’s municipal code"
       ordinance_check = "dekalb"
     elif rental_property.county.lower() == "cook":
-      which_ordinance == "Cook County’s Residential Tenant Landlord Ordinance"
+      which_ordinance = "Cook County’s Residential Tenant Landlord Ordinance"
       ordinance_check = "cook"
     else:
-      which_ordinance == "the Illinois Residential Tenant Right to Repair Act"
+      which_ordinance = "the Illinois Residential Tenant Right to Repair Act"
       ordinance_check = "illinois"
   else:
-    which_ordinance ="not applicable"
+    which_ordinance = "not applicable"
     ordinance_check = "none"
+  ordinance_code_block = True
 ---
 depends on:
   - tenant_caused
   - is_excluded_dwelling
   - rental_property.city
+  - rental_property.county
   - emergency_check
 code: |
   if tenant_caused or is_excluded_dwelling or utility_issue:
@@ -576,7 +597,7 @@ subquestion: |
 id: cook county options
 continue button field: cook_options
 question: |
-  Rental repair in Cook County
+  Additional options in Cook County
 subquestion: |
   Cook County laws give you more options than just repairing and deducting.
 
@@ -814,7 +835,7 @@ depends on:
   - essential_services
   - rental_property.city
   - rental_property.county
-  - emergency_issue
+  - emergency_check
 code: |
   if essential_services:
     if rental_property.city.lower() == "chicago" or rental_property.city.lower() == "oak_park":
@@ -823,7 +844,7 @@ code: |
       time_limit = "within 36 hours"
     else:
       time_limit = "as soon as possible"
-  elif emergency_issue:
+  elif emergency_check:
     time_limit = "as soon as possible"
   elif rental_property.city.lower() == "mount prospect":
     time_limit = "within 7 days"
@@ -831,7 +852,7 @@ code: |
     time_limit = "within 14 days"
 
   if rental_property.city.lower() == "chicago":
-    if essential_services or emergency_issue:
+    if essential_services or emergency_check:
       deduction_amount = "the cost of the repair from your rent"
     else: 
       deduction_amount = "up to either $500 or one month's rent, whichever is greater, from your rent"
@@ -855,12 +876,14 @@ code: |
     deduction_amount = "as much as $500 or half one month's rent, whichever is greater, from your rent"
   else:
     deduction_amount = "as much as $500 or half your monthly rent, whichever is less, from your rent"
+
+  deduction_code_block = True
 ---
 depends on:
   - has_an_ordinance
   - rental_property.city
   - rental_property.county
-  - emergency_issue
+  - emergency_check
   - essential_services
   - which_ordinance
 code: |
@@ -870,13 +893,13 @@ code: |
   termination_text = ""
   
   if has_an_ordinance:
-    if rental_property.city.lower() == "dekalb" and not emergency_issue:
+    if rental_property.city.lower() == "dekalb" and not emergency_check:
       repair_or_inspect_text = "I could contact the City of DeKalb's Code Enforcement Division and request that an inspector come to the apartment. According to the City of DeKalb’s municipal code, the inspector may require you to repair the issue."
     elif rental_property.city.lower() != "mount prospect" or essential_services:
       repair_or_inspect_text = "I could hire a professional to repair the problem(s). Please note that if I do so, I will send you the paid bill. According to "
       repair_or_inspect_text += which_ordinance
       if rental_property.city.lower() == "chicago":
-        if emergency_issue or essential_services:
+        if emergency_check or essential_services:
           repair_or_inspect_text += ", I may be able to deduct the cost of the repair from my rent payment."
         else:
           repair_or_inspect_text += ", I may be able to deduct up to either $500 or one month's rent, whichever is greater, from my rent payment."
@@ -896,7 +919,7 @@ code: |
           repair_or_inspect_text += ", I may be able to deduct as much as $500 or half my monthly rent, whichever is greater, from my rent payment."
       elif rental_property.city.lower() == "urbana":
         repair_or_inspect_text += ", I may be able to deduct the cost of the repair from my rent payments."  
-      elif rental_property.county.lower() == "cook":
+      elif ordinance_check == "cook":
         if essential_services:
           repair_or_inspect_text += ", I may be able to deduct the entire cost of the repair from my rent payments."
         else:
@@ -919,7 +942,7 @@ code: |
         reduced_value_text = "If you do not make the repairs within 24 hours, I could withhold from my monthly rent payment an amount that reasonably reflects the reduced value of the property."
       else:
         reduced_value_text = "If you do not make the repairs within 14 days, I could withhold from my monthly rent payment an amount that reasonably reflects the reduced value of the property."
-    elif rental_property.county.lower() == "cook":
+    elif ordinance_check == "cook":
       reduced_value_text = "I could withhold from my monthly rent payment an amount that reasonably reflects the reduced value of the property."
 
   if has_an_ordinance and essential_services:
@@ -931,7 +954,7 @@ code: |
       sub_housing_text = "I could find substitute housing. If I do, I would be exempted from paying rent until the issue is fixed. Additionally, I may recover the cost of the substitute housing up to an amount equal to the monthly rent."
     elif rental_property.city.lower() == "oak park":
       sub_housing_txt = "I could find substitute housing.  If I do, I would be exempted from paying rent until the issue is fixed. Additionally, I may recover the cost of the substitute housing up to an amount equal to the monthly rent and reasonable fees."
-    elif rental_property.county.lower() == "cook":
+    elif ordinance_check == "cook":
       sub_housing_text = "I could find substitute housing.  If I do, I would be exempted from paying rent until the issue is fixed. Additionally, I may recover the cost of the substitute housing up to an amount equal to the monthly rent and reasonable fees."
     elif rental_property.city.lower() == "urbana":
       sub_housing_text = "I could find substitute housing. If I do, I could deduct the average cost for a hotel//motel room in Urbana from my rent payment."
@@ -952,7 +975,7 @@ code: |
         termination_text = "I could terminate the rental agreement if you do not repair the issue within 72 hours. If, at that time, I choose to terminate the agreement, I would vacate the property within 30 days or by the end of the next rental period, whichever is longer. If I do not vacate the property by then, the rental agreement shall remain in effect. If I vacate the property, you may be required to return my security deposit."
       else:
         termination_text = "I could terminate the rental agreement if you do not repair the issue within 14 days. If, at that time, I choose to terminate the agreement, I would vacate the property within 30 days or by the end of the next rental period, whichever is longer . If I do not vacate the property by then, the rental agreement shall remain in effect. If I vacate the property, you may be required to return my security deposit."
-		elif rental_property.county.lower() == "cook" and rental_property.city != "mount prospect":
+		elif ordinance_check == "cook" and rental_property.city != "mount prospect":
       if essential_services:
         termination_text = "I could terminate the rental agreement if you do not repair the issue within 72 hours. If, at that time, I choose to terminate the agreement, I would vacate the property either within one month or by the end of the next rental period, whichever is later. If I do not vacate the property by then, the rental agreement shall remain in effect."
       else:
@@ -1004,9 +1027,9 @@ event: get_docs_screen
 question: |
   Download
 subquestion: |  
-  Your letter is ready. View and download your letter below. Click **Make changes** to fix any mistakes.
+  Your letter is ready. View and download your letter below. Click **:edit: Make changes** to fix any mistakes.
 
-  This program **does not file** mail your letter. You will need to do this yourself.
+  This program **does not mail** your letter. You will need to do this yourself.
 
   ${ action_button_html(url_action('review_answers'), label=':edit: Make changes', color='success', size="md") }
   
@@ -1016,7 +1039,7 @@ subquestion: |
 
   ${ al_user_bundle.send_button_html(show_editable_checkbox=False) }
 
-  **Note:** This program **does not file** mail your letter. You will need to do this yourself.
+  **Note:** This program **does not mail** your letter. You will need to do this yourself.
   
   Thank you for using ILAO Easy Forms!
 under: |
@@ -1061,3 +1084,423 @@ attachment:
     filename: letter
     docx template file: rental_repair_letter.docx
 ---
+section: Rental property
+id: rental property review screen
+event: section_property
+question: |
+  Rental Property
+subquestion: |
+  Edit your answers below.
+review:
+  - Edit: emergency_check
+    button: |
+      **Is the issue in need of repair an emergency?**
+      ${word(yesno(emergency_check))}
+  - Edit: rental_property.address
+    button: |
+      **What is the rental property's address?**
+      ${rental_property.on_one_line(bare=True)}
+  - Edit: tenant_caused
+    button: |
+        **Was the damage to the property caused by you, a family member, or someone you let on the property?**
+        ${word(yesno(tenant_caused))}
+  - Edit: is_excluded_dwelling
+    button: |
+      **Is the rental property any of the following?**
+
+      % if rental_property.city.lower() == "chicago":
+      * **A medical, educational, or relgious facility,**
+      * **A hotel or motel,**
+      * **Something you have signed a contract to buy,**
+      * **A place you had to rent because the landlord is your employer, and the job required you to rent there, or**
+      * **A co-op.**
+      % elif rental_property.city.lower() == "dekalb":
+      * **A medical, educational, or relgious facility,**
+      * **A hotel or motel,**
+      * **Government-owned, or**
+      * **A rooming house.**
+      % elif rental_property.city.lower() == "evanston":
+      * **A medical, educational, or relgious facility,**
+      * **A hotel or motel,**
+      * **A fraternity or social organization,**
+      * **Something you have signed a contract to buy,**
+      * **A co-op, or**
+      * **An educational institution.**
+      % elif rental_property.city.lower() == "mount prospect":
+      * **A medical, educational, or relgious facility,**
+      * **A residential care home,**
+      * **A hotel or motel, or**
+      * **Something you have signed a contract to buy.**
+      % elif rental_property.city.lower() == "oak park":
+      * **A hotel or motel,**
+      * **A medical, educational, or relgious facility,**
+      * **A school dormitory,**
+      * **A temporary or transitional shelter,**
+      * **A place you had to rent because the landlord is your employer, and the job required you to rent there.**
+      % elif rental_property.city.lower() == "urbana":
+      * **A medical, educational, or relgious facility,**
+      * **A hotel or motel,**
+      * **A fraternity or social organization,**
+      * **Something you have signed a contract to buy, or**
+      * **A place you had to rent because the landlord is your employer, and the job required you to rent there.**
+      % elif rental_property.county.lower() == "cook":
+      * **A hotel or motel,**
+      * **A school dormitory,**
+      * **A shelter or a single-room-occupancy (SRO),**
+      * **A place you had to rent because the landlord is your employer, and the job required you to rent there, or**
+      * **An owner-occupied co-op.**
+      % else:
+      * **Public housing,**
+      * **An apartment you rent via Housing Choice or a Section 8 Voucher,**
+      * **A condominium,**
+      * **Residential Cooperative (Co-op) operated by a nonprofit, or**
+      * **A mobile home.**
+      % endif
+
+      ${word(yesno(is_excluded_dwelling))}
+  - Edit: units
+    button: |
+      **Number of units in the rental property:**
+      % if units == "lower":
+      Up to 6 units
+      % elif units == "higher":
+      7 or more units
+      % endif
+    show if: rental_property.city.lower() != "urbana" and rental_property.city.lower() != "evanston"
+  - Edit: landlord_resident
+    button: |
+      **Does your landlord live in the same building as you?**
+      ${word(yesno(landlord_resident))}
+    show if: ((rental_property.city.lower() == "dekalb" or rental_property.city.lower() == "mount prospect") and not emergency_check and units == "lower") or (rental_property.city.lower() != "urbana" and rental_property.city.lower() != "evanston" and units == "lower")
+  - Edit: utility_issue
+    button: |
+      **Is the issue a service outage caused by a utility supplier?**
+      ${word(yesno(utility_issue))}
+  - Edit: 
+      - cook_info
+      - cook_options
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**   
+    show if: ordinance_check == "cook"
+  - Edit: dekalb_info
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: ordinance_check == "dekalb"
+  - Edit:
+      - evanston_info
+      - evanston_options
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: ordinance_check == "evanston"
+  - Edit: oak_park_info
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: ordinance_check == "oak park"
+  - Edit: mount_prospect_info
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: ordinance_check == "mount prospect"
+  - Edit:
+      - chicago_info
+      - chicago_utility
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: utility_issue and ordinance_check == "chicago"
+  - Edit:
+      - chicago_info
+      - chicago_options_info
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: ordinance_check == "chicago" and not utility_issue
+  - Edit: illinois_info
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: ordinance_check == "illinois"
+  - Edit: generic_letter
+    button: |
+      **Your options (Click Edit to review)**
+    show if: ordinance_check == "none" or not applicable_law
+  - Edit: urbana_info
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: ordinance_check == "urbana"
+---
+section: Repair
+id: repair review screen
+event: section_repair
+question: |
+  Repair
+subquestion: |
+  Edit your answers below.
+review:
+  - Edit: emergency_check
+    button: |
+      **Is the issue in need of repair an emergency?**
+      ${word(yesno(emergency_check))}
+  - Edit: essential_services
+    button: |
+      **Is the issue a problem with essential services?**
+      ${word(yesno(essential_services))}
+    show if: not utility_issue
+  - Edit: repairs_needed
+    button: |
+      **Repairs needed:**
+      
+      ${repairs_needed}
+---
+section: Letter
+id: letter review screen
+event: section_letter
+question: |
+  Letter
+subquestion: |
+  Edit your answers below.
+review:
+  - Edit: unknown_landlord
+    button: |
+      **Your landlord:**
+      % if unknown_landlord:
+      I don't know their name.
+      % else:
+      ${landlord.name.full(middle='full')}
+      % endif
+  - Edit: unknown_address
+    button: |
+      % if unknown_landlord:
+      **Your landlord's address:**
+      % else:
+      **${landlord.name.full(middle='full')}'s address:**
+      % endif
+      % if unknown_address:
+      I don't know.
+      % else:
+      ${landlord.address.on_one_line(bare=True)}
+      % endif
+  - Edit: users[0].name.first
+    button: |
+      **Your name:**
+      ${users[0].name.full(middle='full')}
+  - Edit: users[0].phone_number
+    button: |
+      **Your contact info:**
+
+      % if users[0].phone_number != "":
+      * Phone number: ${phone_number_formatted(users[0].phone_number)}
+      % else:
+      * Phone number: Not entered
+      % endif
+      % if users[0].email != "":
+      * Email address: ${users[0].email}}
+      % else:
+      * Email address: Not entered
+      % endif
+  - Edit: delivery_date
+    button: |
+      **Date you will send the letter:**
+      % if delivery_date != "":
+      ${delivery_date}
+      % else:
+      Not entered
+      % endif
+---
+id: review screen
+event: review_answers
+question: |
+  Review screen
+subquestion: |
+  Edit your answers below.
+review:
+  - note: |
+      <h4>Rental Property</h4>
+  - Edit: rental_property.address
+    button: |
+      **What is the rental property's address?**
+      ${rental_property.on_one_line(bare=True)}
+  - Edit: tenant_caused
+    button: |
+        **Was the damage to the property caused by you, a family member, or someone you let on the property?**
+        ${word(yesno(tenant_caused))}
+  - Edit: is_excluded_dwelling
+    button: |
+      **Is the rental property any of the following?**
+
+      % if rental_property.city.lower() == "chicago":
+      * **A medical, educational, or relgious facility,**
+      * **A hotel or motel,**
+      * **Something you have signed a contract to buy,**
+      * **A place you had to rent because the landlord is your employer, and the job required you to rent there, or**
+      * **A co-op.**
+      % elif rental_property.city.lower() == "dekalb":
+      * **A medical, educational, or relgious facility,**
+      * **A hotel or motel,**
+      * **Government-owned, or**
+      * **A rooming house.**
+      % elif rental_property.city.lower() == "evanston":
+      * **A medical, educational, or relgious facility,**
+      * **A hotel or motel,**
+      * **A fraternity or social organization,**
+      * **Something you have signed a contract to buy,**
+      * **A co-op, or**
+      * **An educational institution.**
+      % elif rental_property.city.lower() == "mount prospect":
+      * **A medical, educational, or relgious facility,**
+      * **A residential care home,**
+      * **A hotel or motel, or**
+      * **Something you have signed a contract to buy.**
+      % elif rental_property.city.lower() == "oak park":
+      * **A hotel or motel,**
+      * **A medical, educational, or relgious facility,**
+      * **A school dormitory,**
+      * **A temporary or transitional shelter,**
+      * **A place you had to rent because the landlord is your employer, and the job required you to rent there.**
+      % elif rental_property.city.lower() == "urbana":
+      * **A medical, educational, or relgious facility,**
+      * **A hotel or motel,**
+      * **A fraternity or social organization,**
+      * **Something you have signed a contract to buy, or**
+      * **A place you had to rent because the landlord is your employer, and the job required you to rent there.**
+      % elif rental_property.county.lower() == "cook":
+      * **A hotel or motel,**
+      * **A school dormitory,**
+      * **A shelter or a single-room-occupancy (SRO),**
+      * **A place you had to rent because the landlord is your employer, and the job required you to rent there, or**
+      * **An owner-occupied co-op.**
+      % else:
+      * **Public housing,**
+      * **An apartment you rent via Housing Choice or a Section 8 Voucher,**
+      * **A condominium,**
+      * **Residential Cooperative (Co-op) operated by a nonprofit, or**
+      * **A mobile home.**
+      % endif
+
+      ${word(yesno(is_excluded_dwelling))}
+  - Edit: units
+    button: |
+      **Number of units in the rental property:**
+      % if units == "lower":
+      Up to 6 units
+      % elif units == "higher":
+      7 or more units
+      % endif
+    show if: rental_property.city.lower() != "urbana" and rental_property.city.lower() != "evanston"
+  - Edit: landlord_resident
+    button: |
+      **Does your landlord live in the same building as you?**
+      ${word(yesno(landlord_resident))}
+    show if: ((rental_property.city.lower() == "dekalb" or rental_property.city.lower() == "mount prospect") and not emergency_check and units == "lower") or (rental_property.city.lower() != "urbana" and rental_property.city.lower() != "evanston" and units == "lower")
+  - Edit: utility_issue
+    button: |
+      **Is the issue a service outage caused by a utility supplier?**
+      ${word(yesno(utility_issue))}
+  - Edit: 
+      - cook_info
+      - cook_options
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**   
+    show if: ordinance_check == "cook"
+  - Edit: dekalb_info
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: ordinance_check == "dekalb"
+  - Edit:
+      - evanston_info
+      - evanston_options
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: ordinance_check == "evanston"
+  - Edit: oak_park_info
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: ordinance_check == "oak park"
+  - Edit: mount_prospect_info
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: ordinance_check == "mount prospect"
+  - Edit:
+      - chicago_info
+      - chicago_utility
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: utility_issue and ordinance_check == "chicago"
+  - Edit:
+      - chicago_info
+      - chicago_options_info
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: ordinance_check == "chicago" and not utility_issue
+  - Edit: illinois_info
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: ordinance_check == "illinois"
+  - Edit: generic_letter
+    button: |
+      **Your options (Click Edit to review)**
+    show if: ordinance_check == "none" or not applicable_law
+  - Edit: urbana_info
+    button: |
+      **Your options under ${which_ordinance} (Click Edit to review)**
+    show if: ordinance_check == "urbana"
+  - note: |
+      <h4>Repairs</h4>
+  - Edit: emergency_check
+    button: |
+      **Is the issue in need of repair an emergency?**
+      ${word(yesno(emergency_check))}
+  - Edit: essential_services
+    button: |
+      **Is the issue a problem with essential services?**
+      ${word(yesno(essential_services))}
+    show if: not utility_issue
+  - Edit: repairs_needed
+    button: |
+      **Repairs needed:**
+      
+      ${repairs_needed}
+  - note: |
+      <h4>Letter</h4>
+  - Edit: unknown_landlord
+    button: |
+      **Your landlord:**
+      % if unknown_landlord:
+      I don't know their name.
+      % else:
+      ${landlord.name.full(middle='full')}
+      % endif
+  - Edit: unknown_address
+    button: |
+      % if unknown_landlord:
+      **Your landlord's address:**
+      % else:
+      **${landlord.name.full(middle='full')}'s address:**
+      % endif
+      % if unknown_address:
+      I don't know.
+      % else:
+      ${landlord.address.on_one_line(bare=True)}
+      % endif
+  - Edit: users[0].name.first
+    button: |
+      **Your name:**
+      ${users[0].name.full(middle='full')}
+  - Edit: users[0].phone_number
+    button: |
+      **Your contact info:**
+
+      % if users[0].phone_number != "":
+      * Phone number: ${phone_number_formatted(users[0].phone_number)}
+      % else:
+      * Phone number: Not entered
+      % endif
+      % if users[0].email != "":
+      * Email address: ${users[0].email}}
+      % else:
+      * Email address: Not entered
+      % endif
+  - Edit: delivery_date
+    button: |
+      **Date you will send the letter:**
+      % if delivery_date != "":
+      ${delivery_date}
+      % else:
+      Not entered
+      % endif
