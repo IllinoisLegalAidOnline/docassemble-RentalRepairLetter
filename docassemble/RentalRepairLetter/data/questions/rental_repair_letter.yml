@@ -1176,53 +1176,53 @@ review:
     button: |
       **Is the issue a service outage caused by a utility supplier?**
       ${word(yesno(utility_issue))}
-  - Edit: 
+  - Review: 
       - cook_info
       - cook_options
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**   
+      **Your options under ${which_ordinance}**   
     show if: ordinance_check == "cook"
-  - Edit: dekalb_info
+  - Review: dekalb_info
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: ordinance_check == "dekalb"
-  - Edit:
+  - Review:
       - evanston_info
       - evanston_options
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: ordinance_check == "evanston"
-  - Edit: oak_park_info
+  - Review: oak_park_info
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: ordinance_check == "oak park"
-  - Edit: mount_prospect_info
+  - Review: mount_prospect_info
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: ordinance_check == "mount prospect"
-  - Edit:
+  - Review:
       - chicago_info
       - chicago_utility
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: utility_issue and ordinance_check == "chicago"
-  - Edit:
+  - Review:
       - chicago_info
       - chicago_options_info
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: ordinance_check == "chicago" and not utility_issue
-  - Edit: illinois_info
+  - Review: illinois_info
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: ordinance_check == "illinois"
-  - Edit: generic_letter
+  - Review: generic_letter
     button: |
-      **Your options (Click Edit to review)**
+      **Your options**
     show if: ordinance_check == "none" or not applicable_law
-  - Edit: urbana_info
+  - Review: urbana_info
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: ordinance_check == "urbana"
 ---
 section: Repair
@@ -1392,53 +1392,53 @@ review:
     button: |
       **Is the issue a service outage caused by a utility supplier?**
       ${word(yesno(utility_issue))}
-  - Edit: 
+  - Review: 
       - cook_info
       - cook_options
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**   
+      **Your options under ${which_ordinance}**   
     show if: ordinance_check == "cook"
-  - Edit: dekalb_info
+  - Review: dekalb_info
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: ordinance_check == "dekalb"
-  - Edit:
+  - Review:
       - evanston_info
       - evanston_options
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: ordinance_check == "evanston"
-  - Edit: oak_park_info
+  - Review: oak_park_info
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: ordinance_check == "oak park"
-  - Edit: mount_prospect_info
+  - Review: mount_prospect_info
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: ordinance_check == "mount prospect"
-  - Edit:
+  - Review:
       - chicago_info
       - chicago_utility
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: utility_issue and ordinance_check == "chicago"
-  - Edit:
+  - Review:
       - chicago_info
       - chicago_options_info
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: ordinance_check == "chicago" and not utility_issue
-  - Edit: illinois_info
+  - Review: illinois_info
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: ordinance_check == "illinois"
-  - Edit: generic_letter
+  - Review: generic_letter
     button: |
-      **Your options (Click Edit to review)**
+      **Your options**
     show if: ordinance_check == "none" or not applicable_law
-  - Edit: urbana_info
+  - Review: urbana_info
     button: |
-      **Your options under ${which_ordinance} (Click Edit to review)**
+      **Your options under ${which_ordinance}**
     show if: ordinance_check == "urbana"
   - note: |
       <h4>Repairs</h4>
