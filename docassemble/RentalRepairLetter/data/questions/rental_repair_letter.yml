@@ -26,7 +26,7 @@ code: |
 sections:
   - section_intro: Start
   - section_property: Rental property
-  - section_repair: Repair
+  - section_repair: Repairs
   - section_letter: Letter
   - section_download: Download  
 ---
@@ -44,8 +44,9 @@ code: |
   deduct_overview
 
   nav.set_section('section_property')
-  emergency_check
+  #emergency_check
   rental_property.address
+  rental_property.county_correct
   if rental_property.state != "IL":
     out_of_state_kickout
   set_progress(20)
@@ -89,7 +90,7 @@ code: |
       oak_park_info
     elif rental_property.city.lower() == "mount prospect":
       mount_prospect_info
-    elif rental_property.county.lower() == "cook":
+    elif end_in_county(rental_property.county).lower() == "cook county":
       cook_info
       cook_options
     else:
@@ -200,7 +201,7 @@ subquestion: |
 
   Landlords have to follow local building and maintenance codes. They must make repairs in a timely manner, and they must provide pest control if needed.
 
-  To learn more about your landlord's duties, read ILAO's article on [**Legal duties of your landlord**](https://www.illinoislegalaid.org/legal-information/legal-duties-my-landlord).
+  To learn more about your landlord's duties, read ILAO's article on [**legal duties of your landlord**](https://www.illinoislegalaid.org/legal-information/legal-duties-my-landlord).
 ---
 id: major issues overview
 continue button field: about_major_issues
@@ -209,9 +210,9 @@ question: |
 subquestion: |
   Some issues are so severe that they require an emergency response. Depending on the type of issue and where you live, your landlord may be required to repair the issue as soon as possible.
 
-  This program only makes a letter requesting repairs and notifying your landlord of the issue and your legal options. You may also want to [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help).
+  This program only makes a letter requesting repairs and notifying your landlord of the issue and your legal options. You may also want to [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help).
 
-  If the issue requires an immediate response, you may want to [**contact emergency services**](www.911.gov/) at 911.
+  If the issue requires an immediate response, you may want to [**contact emergency services**](https://911.gov/) at 911.
 ---
 id: repair and deduct overview
 continue button field: deduct_overview
@@ -236,6 +237,9 @@ subquestion: |
 fields:
   - no label: emergency_check
     datatype: yesnoradio
+  - note: |
+      If it is dangerous to stay in your home, you should exit and [**contact emergency services**](https://911.gov/) at 911.
+    show if: emergency_check
 ---
 id: rental property address
 question: |
@@ -253,8 +257,17 @@ fields:
       states_list()
   - ZIP code: rental_property.zip
   - County: rental_property.county
-    code: |
-      court_list._load_courts()["address_county"].unique()
+  #- County: rental_property.county
+  #  code: |
+  #    court_list._load_courts()["address_county"].unique()
+validation code: |
+  undefine('rental_property.county_correct')
+---
+on change: 
+  rental_property.city: |
+    undefine('is_excluded_dwelling')
+  rental_property.county: |
+    undefine('is_excluded_dwelling')
 ---
 template: county_lookup_help
 subject: |
@@ -357,7 +370,7 @@ subquestion: |
   * A fraternity or social organization,
   * Something you have signed a contract to buy, or
   * A place you had to rent because the landlord is your employer, and the job required you to rent there.
-  % elif rental_property.county.lower() == "cook":
+  % elif end_in_county(rental_property.county).lower() == "cook county":
   * A hotel or motel,
   * A school dormitory,
   * A shelter or a single-room-occupancy (SRO),
@@ -416,7 +429,7 @@ continue button field: applicable_law
 question: |
   What law applies
 subquestion:
-  Based on your answers, ${which_ordinance} ${apply_applies} to your residence.
+  Based on your answers, **${which_ordinance}** ${apply_applies} to your residence.
 ---
 depends on:
   - rental_property.city
@@ -449,7 +462,7 @@ code: |
     elif rental_property.city.lower() == "dekalb":
       which_ordinance = "the City of DeKalb’s municipal code"
       ordinance_check = "dekalb"
-    elif rental_property.county.lower() == "cook":
+    elif end_in_county(rental_property.county).lower() == "cook county":
       which_ordinance = "Cook County’s Residential Tenant Landlord Ordinance"
       ordinance_check = "cook"
     else:
@@ -495,7 +508,7 @@ continue button field: urbana_info
 question: |
   Rental repair in Urbana
 subquestion:
-  If your landlord does not repair the issue within 14 days, you will be able to hire a repairperson yourself and deduct the reasonable cost of that repair from your rent. In Urbana, this deduction can be as much as 2 months' rent.
+  If your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the reasonable cost of that repair from your rent. In Urbana, this deduction can be as much as 2 months' rent.
 
   Also, if the issue involves a disruption of essential services and your landlord does not repair it promptly, you may obtain substitute housing and deduct the average cost of a hotel or motel room in Urbana from your rent. If you are interested in pursuing this option, you may need to **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 ---
@@ -511,9 +524,9 @@ continue button field: chicago_info
 question: |
   Rental repair in Chicago
 subquestion: |
-  If your landlord does not repair the issue within 14 days for a routine issue or within 24 hours for a disruption of essential services, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent.
+  If your landlord does not repair the issue **within 14 days** for a routine issue or within 24 hours for a disruption of essential services, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent.
 
-  In Chicago, this deduction can be as high as $500 or half your montly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost. 
+  In Chicago, this deduction can be as high as $500 or half your montly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost.
 ---
 id: chicago options info
 continue button field: chicago_options_info
@@ -526,7 +539,7 @@ subquestion: |
   * If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed.
   * If you are having an issue with essential services, you could end the rental agreement if your landlord does not make the necessary repairs. If you do so, you would have to move out of your apartment within 30 days.
 
-  **Note:** These options have specific requirements that could affect your rental agreement. If you are interested in these options, we recommend you talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
+  **Note:** These options have specific requirements that could affect your rental agreement. If you are interested in these options, we recommend you talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 ---
 id: chicago utility
 continue button field: chicago_utility
@@ -537,14 +550,14 @@ subquestion: |
 
   If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed.
 
-  **Note:** This option has specific requirements that could affect your rental agreement. If you are interested in this option, we recommend you talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
+  **Note:** This option has specific requirements that could affect your rental agreement. If you are interested in this option, we recommend you talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 ---
 id: evanston info
 continue button field: evanston_info
 question: |
   Rental repair in Evanston
 subquestion: |
-  If your landlord does not repair the issue within 14 days, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as necessary.
+  If your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as necessary.
 
   In Evanston, this deduction can be as high as $200 or half your montly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost.
 ---
@@ -566,7 +579,7 @@ continue button field: oak_park_info
 question: |
   Rental repair in Oak Park
 subquestion: |
-  If your landlord does not repair the issue within 14 days, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
+  If your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
 
   In Oak Park, this deduction can be as high as $500 or half your montly rent, whichever is greater. This deduction cannot be more than the reasonable, customary cost of the repair.
 ---
@@ -575,24 +588,24 @@ continue button field: mount_prospect_info
 question: |
   Rental repair in Mount Prospect
 subquestion: |
-  If the issue does not involve a disruption of essential services and your landlord does not repair the issue within 14 days, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. This deduction can be as high as $500 or half your monthly rent, whichever is less.
+  If the issue does not involve a disruption of essential services and your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. This deduction can be as high as $500 or half your monthly rent, whichever is less.
 
   If the issue involves a disruption of essential services and your landlord does not repair it within 36 hours, you will be able to hire a repairperson yourself and deduct the entire cost of that repair from your rent.
 
-  Alternatively, you can hold back a portion of the rent that reflects the reduced value of the rental unit. If you are interested in pursuing this option, you should talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
+  Alternatively, you can hold back a portion of the rent that reflects the reduced value of the rental unit. If you are interested in pursuing this option, you should talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 
-  If the issue involves a disruption to essential services, you also have the option to obtain substitute housing. If you do so, you would be exempted from paying rent during this time and you could recover some of the cost of the substitute housing. If you are interested in pursuing this option, you should talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
+  If the issue involves a disruption to essential services, you also have the option to obtain substitute housing. If you do so, you would be exempted from paying rent during this time and you could recover some of the cost of the substitute housing. If you are interested in pursuing this option, you should talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 ---
 id: cook county info
 continue button field: cook_info
 question: |
   Rental repair in Cook County
 subquestion: |
-  If your landlord does not repair the issue within 14 days, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
+  If your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
 
   In Cook County, this deduction can be as high as $500 or half your montly rent, whichever is greater. This deduction cannot be more than the reasonable, customary cost of the repair.
 
-  Alternatively, you can hold back a portion of the rent that reflects the reduced value of the rental unit. If you are interested in pursuing this option, you should talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
+  Alternatively, you can hold back a portion of the rent that reflects the reduced value of the rental unit. If you are interested in pursuing this option, you should talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 ---
 id: cook county options
 continue button field: cook_options
@@ -612,7 +625,7 @@ continue button field: illinois_info
 question: |
   Rental repair in Illinois
 subquestion: |
-  If your landlord does not repair the issue within 14 days, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is an emergency, you can repair and deduct if your landlord does not repair the issue as promptly as the situation demands.
+  If your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is an emergency, you can repair and deduct if your landlord does not repair the issue as promptly as the situation demands.
 
   This deduction can be as high as $500 or half your montly rent, whichever is less. This deduction cannot be more than the type of repair would usually cost.
 ---
@@ -654,18 +667,20 @@ subquestion: |
   Your answer will become part of the letter. You can enter a full sentence or a list. Here are some examples:
 
   Full sentence:
-
+  <p>
+  <p><ul>
   The light fixtures in the living room are not working, and the kitchen sink does not drain.
-
+  </ul></p>
   List:
-
-  * The shower in the master bathroom will not turn off.
-  * There is a hole in the floor of the bedroom.
+  <p>
+  <p><ol>
+  <li>The shower in the master bathroom will not turn off.</li>
+  <li>There is a hole in the floor of the bedroom.</li>
+  </ol></p>
 fields:
   - Repairs: repairs_needed
     input type: area
     rows: 8
-    maxlength: 1000
 ---
 id: landlord name
 question: |
@@ -678,25 +693,27 @@ subquestion: |
   If you don't know your landlord, you can send the letter to a person who works for the landlord. This could be someone who collects rent or maintains the property. People that work for the landlord are called the landlord's agents.
 
 fields:
-  #- code: |
-  #    landlord.name_fields(person_or_business='unsure')
-  - First: landlord.name.first
-    js hide if:
-      val('unknown_landlord') === true
-  - Middle: landlord.name.middle
-    required: False
-    js hide if:
-      val('unknown_landlord') === true
-  - Last: landlord.name.last
-    required: False
-    js hide if:
-      val('unknown_landlord') === true
-  - Suffix: landlord.name.suffix
-    code: |
-      name_suffix()
-    required: False   
-    js hide if:
-      val('unknown_landlord') === true
+  - code: |
+      landlord.name_fields(person_or_business='unsure', show_if={"variable":"unknown_landlord","is":False})
+   # show if: not unknown_landlord
+     # val('unknown_landlord') === true
+  #- First: landlord.name.first
+  #  js hide if:
+  #    val('unknown_landlord') === true
+  #- Middle: landlord.name.middle
+  #  required: False
+  #  js hide if:
+  #    val('unknown_landlord') === true
+  #- Last: landlord.name.last
+  #  required: False
+  #  js hide if:
+  #    val('unknown_landlord') === true
+  #- Suffix: landlord.name.suffix
+  #  code: |
+  #    name_suffix()
+  #  required: False   
+  #  js hide if:
+  #    val('unknown_landlord') === true
   - I do not know.: unknown_landlord
     datatype: yesnowide
 ---
@@ -713,7 +730,7 @@ question: |
   % if unknown_landlord:
   What is your landlord's address?
   % else:
-  What is ${landlord.name.full(middle='full')}'s address?
+  What is ${landlord.name_full()}'s address?
   % endif
 subquestion: |
   Their address may be listed on your lease.
@@ -768,7 +785,7 @@ subquestion: |
   % if unknown_landlord:
   If you do not want to include this information in your letter, you can leave these fields blank. However, your landlord may have a harder time contacting you without this information. This could slow down the repair process.
   % else:
-  If you do not want to include this information in your letter, you can leave these fields blank. However, ${landlord.name.full(middle='full')} may have a harder time contacting you without this information. This could slow down the repair process.
+  If you do not want to include this information in your letter, you can leave these fields blank. However, ${landlord.name_full()} may have a harder time contacting you without this information. This could slow down the repair process.
   % endif
   
   ${ collapse_template(contact_info_help) }  
@@ -825,11 +842,11 @@ continue button field: after_the_letter
 question: |
   After sending your letter
 subquestion: |
-  After getting the letter, your landlord will have to make the repair ${time_limit}. After that time limit, you can hire a professional to make the repair. You must send your landlord a copy of the paid bill.
+  After getting the letter, your landlord will have to make the repair **${time_limit}**. After that time limit, you can hire a professional to make the repair. You must send your landlord a copy of the paid bill.
 
   If the landlord does not reimburse you, you can deduct ${deduction_amount}.
 
-  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using Get Legal Help.
+  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help).
 ---
 depends on:
   - essential_services
@@ -872,7 +889,7 @@ code: |
     deduction_amount = "as much as $500 or half one month's rent, whichever is less, from your rent"
   elif rental_property.city.lower() == "urbana":
     deduction_amount = "as much as two months' rent from your rent payments"
-  elif rental_property.county.lower() == "cook":
+  elif end_in_county(rental_property.county).lower() == "cook county":
     deduction_amount = "as much as $500 or half one month's rent, whichever is greater, from your rent"
   else:
     deduction_amount = "as much as $500 or half your monthly rent, whichever is less, from your rent"
@@ -1009,7 +1026,7 @@ question: |
 subquestion: |
   Your letter will ask your landlord to repair the issue as soon as possible.
 
-  If your landlord does not repair the issue, you may want to Get Legal Help. You may also want to contact your local building department.
+  If your landlord does not repair the issue, you may want to [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help). You may also want to contact your local building department.
 ---
 id: forms assembling
 continue button field: forms_assembling
@@ -1092,14 +1109,12 @@ question: |
 subquestion: |
   Edit your answers below.
 review:
-  - Edit: emergency_check
-    button: |
-      **Is the issue in need of repair an emergency?**
-      ${word(yesno(emergency_check))}
-  - Edit: rental_property.address
+  - label: Edit 
+    fields:
+      - rental_property.address
     button: |
       **What is the rental property's address?**
-      ${rental_property.on_one_line(bare=True)}
+      ${rental_property.on_one_line(bare=True)}, ${end_in_county(rental_property.county)}
   - Edit: tenant_caused
     button: |
         **Was the damage to the property caused by you, a family member, or someone you let on the property?**
@@ -1143,7 +1158,7 @@ review:
       * **A fraternity or social organization,**
       * **Something you have signed a contract to buy, or**
       * **A place you had to rent because the landlord is your employer, and the job required you to rent there.**
-      % elif rental_property.county.lower() == "cook":
+      % elif end_in_county(rental_property.county).lower() == "cook county":
       * **A hotel or motel,**
       * **A school dormitory,**
       * **A shelter or a single-room-occupancy (SRO),**
@@ -1172,60 +1187,71 @@ review:
       **Does your landlord live in the same building as you?**
       ${word(yesno(landlord_resident))}
     show if: ((rental_property.city.lower() == "dekalb" or rental_property.city.lower() == "mount prospect") and not emergency_check and units == "lower") or (rental_property.city.lower() != "urbana" and rental_property.city.lower() != "evanston" and units == "lower")
+  - Edit: emergency_check
+    button: |
+      **Is the issue in need of repair an emergency?**
+      ${word(yesno(emergency_check))}
   - Edit: utility_issue
     button: |
       **Is the issue a service outage caused by a utility supplier?**
       ${word(yesno(utility_issue))}
-  - Review: 
+  - Edit: essential_services
+    button: |
+      **Is the issue a problem with essential services?**
+      ${word(yesno(essential_services))}
+  #- note: |
+  #    Click the **Review** button to read about your options under ${which_ordinance}
+    show if: not utility_issue
+  - ":eye: **Review**": 
       - cook_info
       - cook_options
     button: |
       **Your options under ${which_ordinance}**   
     show if: ordinance_check == "cook"
-  - Review: dekalb_info
+  - ":eye: **Review**": dekalb_info
     button: |
       **Your options under ${which_ordinance}**
     show if: ordinance_check == "dekalb"
-  - Review:
+  - ":eye: **Review**":
       - evanston_info
       - evanston_options
     button: |
       **Your options under ${which_ordinance}**
     show if: ordinance_check == "evanston"
-  - Review: oak_park_info
+  - ":eye: **Review**": oak_park_info
     button: |
       **Your options under ${which_ordinance}**
     show if: ordinance_check == "oak park"
-  - Review: mount_prospect_info
+  - ":eye: **Review**": mount_prospect_info
     button: |
       **Your options under ${which_ordinance}**
     show if: ordinance_check == "mount prospect"
-  - Review:
+  - ":eye: **Review**":
       - chicago_info
       - chicago_utility
     button: |
       **Your options under ${which_ordinance}**
     show if: utility_issue and ordinance_check == "chicago"
-  - Review:
+  - ":eye: **Review**":
       - chicago_info
       - chicago_options_info
     button: |
-      **Your options under ${which_ordinance}**
+      **Your options under ${which_ordinance}** 
     show if: ordinance_check == "chicago" and not utility_issue
-  - Review: illinois_info
+  - ":eye: **Review**": illinois_info
     button: |
       **Your options under ${which_ordinance}**
     show if: ordinance_check == "illinois"
-  - Review: generic_letter
+  - ":eye: **Review**": generic_letter
     button: |
       **Your options**
     show if: ordinance_check == "none" or not applicable_law
-  - Review: urbana_info
+  - ":eye: **Review**": urbana_info
     button: |
       **Your options under ${which_ordinance}**
     show if: ordinance_check == "urbana"
 ---
-section: Repair
+section: Repairs
 id: repair review screen
 event: section_repair
 question: |
@@ -1262,14 +1288,14 @@ review:
       % if unknown_landlord:
       I don't know their name.
       % else:
-      ${landlord.name.full(middle='full')}
+      ${landlord.name_full()}
       % endif
   - Edit: unknown_address
     button: |
       % if unknown_landlord:
       **Your landlord's address:**
       % else:
-      **${landlord.name.full(middle='full')}'s address:**
+      **${landlord.name_full()}'s address:**
       % endif
       % if unknown_address:
       I don't know.
@@ -1279,7 +1305,7 @@ review:
   - Edit: users[0].name.first
     button: |
       **Your name:**
-      ${users[0].name.full(middle='full')}
+      ${users[0].name_full()}
   - Edit: users[0].phone_number
     button: |
       **Your contact info:**
@@ -1315,7 +1341,7 @@ review:
   - Edit: rental_property.address
     button: |
       **What is the rental property's address?**
-      ${rental_property.on_one_line(bare=True)}
+      ${rental_property.on_one_line(bare=True)}, ${end_in_county(rental_property.county)}
   - Edit: tenant_caused
     button: |
         **Was the damage to the property caused by you, a family member, or someone you let on the property?**
@@ -1359,7 +1385,7 @@ review:
       * **A fraternity or social organization,**
       * **Something you have signed a contract to buy, or**
       * **A place you had to rent because the landlord is your employer, and the job required you to rent there.**
-      % elif rental_property.county.lower() == "cook":
+      % elif end_in_county(rental_property.county).lower() == "cook county":
       * **A hotel or motel,**
       * **A school dormitory,**
       * **A shelter or a single-room-occupancy (SRO),**
@@ -1392,51 +1418,51 @@ review:
     button: |
       **Is the issue a service outage caused by a utility supplier?**
       ${word(yesno(utility_issue))}
-  - Review: 
+  - ":eye: **Review**": 
       - cook_info
       - cook_options
     button: |
       **Your options under ${which_ordinance}**   
     show if: ordinance_check == "cook"
-  - Review: dekalb_info
+  - ":eye: **Review**": dekalb_info
     button: |
       **Your options under ${which_ordinance}**
     show if: ordinance_check == "dekalb"
-  - Review:
+  - ":eye: **Review**":
       - evanston_info
       - evanston_options
     button: |
       **Your options under ${which_ordinance}**
     show if: ordinance_check == "evanston"
-  - Review: oak_park_info
+  - ":eye: **Review**": oak_park_info
     button: |
       **Your options under ${which_ordinance}**
     show if: ordinance_check == "oak park"
-  - Review: mount_prospect_info
+  - ":eye: **Review**": mount_prospect_info
     button: |
       **Your options under ${which_ordinance}**
     show if: ordinance_check == "mount prospect"
-  - Review:
+  - ":eye: **Review**":
       - chicago_info
       - chicago_utility
     button: |
       **Your options under ${which_ordinance}**
     show if: utility_issue and ordinance_check == "chicago"
-  - Review:
+  - ":eye: **Review**":
       - chicago_info
       - chicago_options_info
     button: |
-      **Your options under ${which_ordinance}**
+      **Your options under ${which_ordinance}** 
     show if: ordinance_check == "chicago" and not utility_issue
-  - Review: illinois_info
+  - ":eye: **Review**": illinois_info
     button: |
       **Your options under ${which_ordinance}**
     show if: ordinance_check == "illinois"
-  - Review: generic_letter
+  - ":eye: **Review**": generic_letter
     button: |
       **Your options**
     show if: ordinance_check == "none" or not applicable_law
-  - Review: urbana_info
+  - ":eye: **Review**": urbana_info
     button: |
       **Your options under ${which_ordinance}**
     show if: ordinance_check == "urbana"
@@ -1464,14 +1490,14 @@ review:
       % if unknown_landlord:
       I don't know their name.
       % else:
-      ${landlord.name.full(middle='full')}
+      ${landlord.name_full()}
       % endif
   - Edit: unknown_address
     button: |
       % if unknown_landlord:
       **Your landlord's address:**
       % else:
-      **${landlord.name.full(middle='full')}'s address:**
+      **${landlord.name_full()}'s address:**
       % endif
       % if unknown_address:
       I don't know.
@@ -1481,7 +1507,7 @@ review:
   - Edit: users[0].name.first
     button: |
       **Your name:**
-      ${users[0].name.full(middle='full')}
+      ${users[0].name_full()}
   - Edit: users[0].phone_number
     button: |
       **Your contact info:**
