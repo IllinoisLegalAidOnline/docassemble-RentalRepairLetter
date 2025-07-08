@@ -1202,53 +1202,35 @@ review:
   #- note: |
   #    Click the **Review** button to read about your options under ${which_ordinance}
     show if: not utility_issue
-  - ":eye: **Review**": 
-      - cook_info
-      - cook_options
-    button: |
-      **Your options under ${which_ordinance}**   
+  - note: |
+      Review your options under [**Cook County's ordinance Page 1**](${url_action('cook_info')}) and [**Cook County's ordinance Page 2**](${url_action('cook_options')}) 
     show if: ordinance_check == "cook"
-  - ":eye: **Review**": dekalb_info
-    button: |
-      **Your options under ${which_ordinance}**
+  - note: |
+      Review your options under [**DeKalb's municipal code**](${url_action('dekalb_info')})
     show if: ordinance_check == "dekalb"
-  - ":eye: **Review**":
-      - evanston_info
-      - evanston_options
-    button: |
-      **Your options under ${which_ordinance}**
+  - note: |
+      Review your options under [**Evanston's ordinance Page 1**](${url_action('evanston_info')}) and [**Evanston's ordinance Page 2**](${url_action('evanston_options')}) 
     show if: ordinance_check == "evanston"
-  - ":eye: **Review**": oak_park_info
-    button: |
-      **Your options under ${which_ordinance}**
+  - note: |
+      Review your options under [**Oak Park's ordinance**](${url_action('oak_park_info')})
     show if: ordinance_check == "oak park"
-  - ":eye: **Review**": mount_prospect_info
-    button: |
-      **Your options under ${which_ordinance}**
+  - note: |
+      Review your options under the [**Mount Prospect Village Code**](${url_action('mount_prospect_info')})
     show if: ordinance_check == "mount prospect"
-  - ":eye: **Review**":
-      - chicago_info
-      - chicago_utility
-    button: |
-      **Your options under ${which_ordinance}**
+  - note: |
+      Review your options under [**Chicago's ordinance Page 1**](${url_action('chicago_info')}) and [**Chicago's ordinance Page 2**](${url_action('chicago_utility')}) 
     show if: utility_issue and ordinance_check == "chicago"
-  - ":eye: **Review**":
-      - chicago_info
-      - chicago_options_info
-    button: |
-      **Your options under ${which_ordinance}** 
+  - note: |
+      Review your options under [**Chicago's ordinance Page 1**](${url_action('chicago_info')}) and [**Chicago's ordinance Page 2**](${url_action('chicago_options')}) 
     show if: ordinance_check == "chicago" and not utility_issue
-  - ":eye: **Review**": illinois_info
-    button: |
-      **Your options under ${which_ordinance}**
+  - note: |
+      Review your options under the [**Residential Tenant Right to Repair Act**](${url_action('illinois_info')})
     show if: ordinance_check == "illinois"
-  - ":eye: **Review**": generic_letter
-    button: |
-      **Your options**
+  - note: |
+      Review [**your options**](${url_action('illinois_info')})
     show if: ordinance_check == "none" or not applicable_law
-  - ":eye: **Review**": urbana_info
-    button: |
-      **Your options under ${which_ordinance}**
+  - note: |
+      Review your options under [**Urbana's ordinance**](${url_action('urbana_info')})
     show if: ordinance_check == "urbana"
 ---
 section: Repairs
@@ -1418,53 +1400,35 @@ review:
     button: |
       **Is the issue a service outage caused by a utility supplier?**
       ${word(yesno(utility_issue))}
-  - ":eye: **Review**": 
-      - cook_info
-      - cook_options
-    button: |
-      **Your options under ${which_ordinance}**   
+  - note: |
+      Review your options under [**Cook County's ordinance Page 1**](${url_action('cook_info')}) and [**Cook County's ordinance Page 2**](${url_action('cook_options')}) 
     show if: ordinance_check == "cook"
-  - ":eye: **Review**": dekalb_info
-    button: |
-      **Your options under ${which_ordinance}**
+  - note: |
+      Review your options under [**DeKalb's municipal code**](${url_action('dekalb_info')})
     show if: ordinance_check == "dekalb"
-  - ":eye: **Review**":
-      - evanston_info
-      - evanston_options
-    button: |
-      **Your options under ${which_ordinance}**
+  - note: |
+      Review your options under [**Evanston's ordinance Page 1**](${url_action('evanston_info')}) and [**Evanston's ordinance Page 2**](${url_action('evanston_options')}) 
     show if: ordinance_check == "evanston"
-  - ":eye: **Review**": oak_park_info
-    button: |
-      **Your options under ${which_ordinance}**
+  - note: |
+      Review your options under [**Oak Park's ordinance**](${url_action('oak_park_info')})
     show if: ordinance_check == "oak park"
-  - ":eye: **Review**": mount_prospect_info
-    button: |
-      **Your options under ${which_ordinance}**
+  - note: |
+      Review your options under the [**Mount Prospect Village Code**](${url_action('mount_prospect_info')})
     show if: ordinance_check == "mount prospect"
-  - ":eye: **Review**":
-      - chicago_info
-      - chicago_utility
-    button: |
-      **Your options under ${which_ordinance}**
+  - note: |
+      Review your options under [**Chicago's ordinance Page 1**](${url_action('chicago_info')}) and [**Chicago's ordinance Page 2**](${url_action('chicago_utility')}) 
     show if: utility_issue and ordinance_check == "chicago"
-  - ":eye: **Review**":
-      - chicago_info
-      - chicago_options_info
-    button: |
-      **Your options under ${which_ordinance}** 
+  - note: |
+      Review your options under [**Chicago's ordinance Page 1**](${url_action('chicago_info')}) and [**Chicago's ordinance Page 2**](${url_action('chicago_options')}) 
     show if: ordinance_check == "chicago" and not utility_issue
-  - ":eye: **Review**": illinois_info
-    button: |
-      **Your options under ${which_ordinance}**
+  - note: |
+      Review your options under the [**Residential Tenant Right to Repair Act**](${url_action('illinois_info')})
     show if: ordinance_check == "illinois"
-  - ":eye: **Review**": generic_letter
-    button: |
-      **Your options**
+  - note: |
+      Review [**your options**](${url_action('illinois_info')})
     show if: ordinance_check == "none" or not applicable_law
-  - ":eye: **Review**": urbana_info
-    button: |
-      **Your options under ${which_ordinance}**
+  - note: |
+      Review your options under [**Urbana's ordinance**](${url_action('urbana_info')})
     show if: ordinance_check == "urbana"
   - note: |
       <h4>Repairs</h4>
