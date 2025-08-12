@@ -57,11 +57,7 @@ code: |
     cause_info
   else:
     if not is_excluded_dwelling:
-      if rental_property.city.lower() == "dekalb" or rental_property.city.lower() == "mount prospect":
-        if not emergency_check:
-          if units == "lower":
-            landlord_resident
-      elif rental_property.city.lower() != "urbana" and rental_property.city.lower() != "evanston":
+      if rental_property.city.lower() != "urbana" and rental_property.city.lower() != "evanston" and rental_property.city.lower() != "dekalb" and rental_property.city.lower() != "mount prospect":
         if units == "lower":
           landlord_resident
 
@@ -337,43 +333,50 @@ subquestion: |
 
   % if rental_property.city.lower() == "chicago":
   * A medical, educational, or relgious facility,
-  * A hotel or motel,
+  * A hotel, motel, or boarding house,
   * Something you have signed a contract to buy,
+  * An overnight shelter,
   * A place you had to rent because the landlord is your employer, and the job required you to rent there, or
   * A co-op.
   % elif rental_property.city.lower() == "dekalb":
   * A medical, educational, or relgious facility,
-  * A hotel or motel,
+  * A hotel, motel, bed & breakfast, or tourist home
   * Government-owned, or
   * A rooming house.
   % elif rental_property.city.lower() == "evanston":
-  * A medical, educational, or relgious facility,
+  * A medical, educational, relgious, or retirement facility,
   * A hotel or motel,
   * A fraternity or social organization,
   * Something you have signed a contract to buy,
   * A co-op, or
   * An educational institution.
   % elif rental_property.city.lower() == "mount prospect":
-  * A medical, educational, or relgious facility,
+  * A medical, educational, relgious, or retirement facility,
   * A residential care home,
   * A hotel or motel, or
   * Something you have signed a contract to buy.
   % elif rental_property.city.lower() == "oak park":
   * A hotel or motel,
-  * A medical, educational, or relgious facility,
+  * A medical, educational, relgious, or retirement facility,
+  * An overnight shelter,
   * A school dormitory,
   * A temporary or transitional shelter,
+  * A co-op,
+  * Something you have signed a contract to buy, or
   * A place you had to rent because the landlord is your employer, and the job required you to rent there.
   % elif rental_property.city.lower() == "urbana":
-  * A medical, educational, or relgious facility,
-  * A hotel or motel,
+  * A medical, educational, relgious, or retirement facility,
+  * A hotel, motel, or tourist home,
   * A fraternity or social organization,
   * Something you have signed a contract to buy, or
   * A place you had to rent because the landlord is your employer, and the job required you to rent there.
   % elif end_in_county(rental_property.county).lower() == "cook county":
-  * A hotel or motel,
+  * A medical, educational, relgious, or retirement facility,
+  * A hotel, motel, or bed & breakfast,
+  * An overnight shelter,
   * A school dormitory,
   * A shelter or a single-room-occupancy (SRO),
+  * Something you have signed a contract to buy,
   * A place you had to rent because the landlord is your employer, and the job required you to rent there, or
   * An owner-occupied co-op.
   % else:
@@ -482,18 +485,8 @@ depends on:
 code: |
   if tenant_caused or is_excluded_dwelling or utility_issue:
     has_an_ordinance = False
-  elif rental_property.city.lower() == "urbana" or rental_property.city.lower() == "evanston":
+  elif rental_property.city.lower() == "urbana" or rental_property.city.lower() == "evanston" or rental_property.city.lower() == "dekalb" or rental_property.city.lower() == "mount prospect":
     has_an_ordinance = True
-  elif rental_property.city.lower() == "dekalb" or rental_property.city.lower() =="mount prospect":
-    if emergency_check:
-      has_an_ordinance = True
-    elif units == "lower":
-      if landlord_resident:
-        has_an_ordinance = False
-      else: 
-        has_an_ordinance = True
-    else:
-      has_an_ordinance = True
   else:
     if units == "lower":
       if landlord_resident:
@@ -510,7 +503,7 @@ question: |
 subquestion:
   If your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the reasonable cost of that repair from your rent. In Urbana, this deduction can be as much as 2 months' rent.
 
-  Also, if the issue involves a disruption of essential services and your landlord does not repair it promptly, you may obtain substitute housing and deduct the average cost of a hotel or motel room in Urbana from your rent. If you are interested in pursuing this option, you may need to **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
+  Also, if the issue involves a disruption of essential services and your landlord does not repair it promptly, you may obtain substitute housing and deduct the average cost of a hotel or motel room in Urbana from your rent. If you are interested in pursuing this option, you may need to **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 ---
 id: dekalb info
 continue button field: dekalb_info
@@ -557,9 +550,9 @@ continue button field: evanston_info
 question: |
   Rental repair in Evanston
 subquestion: |
-  If your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as necessary.
+  If your landlord does not repair the issue **within 10 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as necessary.
 
-  In Evanston, this deduction can be as high as $200 or half your montly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost.
+  In Evanston, this deduction can be as high as $500 or half your montly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost.
 ---
 id: evanston options
 continue button field: evanston_options
@@ -603,7 +596,7 @@ question: |
 subquestion: |
   If your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
 
-  In Cook County, this deduction can be as high as $500 or half your montly rent, whichever is greater. This deduction cannot be more than the reasonable, customary cost of the repair.
+  In Cook County, this deduction can be as high as $500 or half your monthly rent, whichever is greater, for most issues and can be more if the issue is a disruption of essential services. This deduction cannot be more than the reasonable, customary cost of the repair.
 
   Alternatively, you can hold back a portion of the rent that reflects the reduced value of the rental unit. If you are interested in pursuing this option, you should talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 ---
@@ -846,7 +839,23 @@ subquestion: |
 
   If the landlord does not reimburse you, you can deduct ${deduction_amount}.
 
+  % if ordinance_check == "chicago":
+  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) or learn more about [**Chicago's Department of Housing's services for renters**](https://www.chicago.gov/city/en/depts/doh/provdrs/renters/svcs.html).
+  % elif ordinance_check == "dekalb":
+  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) or call the City of DeKalb's Code Enforcement Division at (815) 748-2070.
+  % elif ordinance_check == "oak park":
   Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help).
+
+  For more information about renters' rights in Oak Park, read about [**Oak Park's Residential Tenant and Landlord Ordinance**](https://www.oak-park.us/Community/Housing/Residential-Tenant-and-Landlord-Ordinance-RTLO). You can also contact Oak Park's Community Relations Coordinator at community@oak-park.us.
+  % elif ordinance_check == "urbana":
+  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) or contact Urbana's [**Community Development Services Department's Building Safety Division**](https://www.urbanail.gov/community-development-services/page/building-safety-division).
+  % elif ordinance_check == "cook":
+  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help).
+
+  For more information about your rights as a renter and organizations in Cook County that may be able to help you, read about [**Cook County's Residential Tenant Landlord Ordinance**](https://www.cookcountyil.gov/rtlo).
+  % else:
+  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help).
+  % endif
 ---
 depends on:
   - essential_services
@@ -855,7 +864,7 @@ depends on:
   - emergency_check
 code: |
   if essential_services:
-    if rental_property.city.lower() == "chicago" or rental_property.city.lower() == "oak_park":
+    if rental_property.city.lower() == "chicago" or rental_property.city.lower() == "oak_park" or end_in_county(rental_property.county).lower() == "cook county":
       time_limit = "within 24 hours"
     elif rental_property.city.lower() == "mount prospect":
       time_limit = "within 36 hours"
@@ -865,6 +874,8 @@ code: |
     time_limit = "as soon as possible"
   elif rental_property.city.lower() == "mount prospect":
     time_limit = "within 7 days"
+  elif rental_property.city.lower() == "evanston":
+    time_limit = "within 10 days"
   else:
     time_limit = "within 14 days"
 
@@ -926,7 +937,7 @@ code: |
         if essential_services:
           repair_or_inspect_text += ", I may be able to deduct the entire cost of the repair from my rent payments."
         else:
-          repair_or_inspect_text += ", I may be able to deduct up to either $200 or half of one month’s rent, whichever is greater, from my rent payment."
+          repair_or_inspect_text += ", I may be able to deduct up to either $500 or half of one month’s rent, whichever is greater, from my rent payment."
       elif rental_property.city.lower() == "mount prospect" and essential_services:
         repair_or_inspect_text += ", I may be able to deduct the entire cost of the repair from my rent payment."
       elif rental_property.city.lower() == "oak park":
@@ -935,7 +946,7 @@ code: |
         else:
           repair_or_inspect_text += ", I may be able to deduct as much as $500 or half my monthly rent, whichever is greater, from my rent payment."
       elif rental_property.city.lower() == "urbana":
-        repair_or_inspect_text += ", I may be able to deduct the cost of the repair from my rent payments."  
+        repair_or_inspect_text += ", I may be able to deduct as much as twice my monthly rent from my rent payments to cover the cost of the repair."  
       elif ordinance_check == "cook":
         if essential_services:
           repair_or_inspect_text += ", I may be able to deduct the entire cost of the repair from my rent payments."
@@ -974,7 +985,7 @@ code: |
     elif ordinance_check == "cook":
       sub_housing_text = "I could find substitute housing.  If I do, I would be exempted from paying rent until the issue is fixed. Additionally, I may recover the cost of the substitute housing up to an amount equal to the monthly rent and reasonable fees."
     elif rental_property.city.lower() == "urbana":
-      sub_housing_text = "I could find substitute housing. If I do, I could deduct the average cost for a hotel//motel room in Urbana from my rent payment."
+      sub_housing_text = "I could find substitute housing. If I do, I could deduct the average cost for a hotel/motel room in Urbana from my rent payment."
 
   if has_an_ordinance:
     if rental_property.city.lower() == "chicago":
