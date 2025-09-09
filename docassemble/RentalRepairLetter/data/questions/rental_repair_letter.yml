@@ -519,7 +519,7 @@ question: |
 subquestion: |
   If your landlord does not repair the issue **within 14 days** for a routine issue or within 24 hours for a disruption of essential services, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent.
 
-  In Chicago, this deduction can be as high as $500 or half your montly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost.
+  In Chicago, this deduction can be as high as $500 or half your monthly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost.
 ---
 id: chicago options info
 continue button field: chicago_options_info
@@ -552,7 +552,7 @@ question: |
 subquestion: |
   If your landlord does not repair the issue **within 10 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as necessary.
 
-  In Evanston, this deduction can be as high as $500 or half your montly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost.
+  In Evanston, this deduction can be as high as $500 or half your monthly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost.
 ---
 id: evanston options
 continue button field: evanston_options
@@ -574,7 +574,7 @@ question: |
 subquestion: |
   If your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
 
-  In Oak Park, this deduction can be as high as $500 or half your montly rent, whichever is greater. This deduction cannot be more than the reasonable, customary cost of the repair.
+  In Oak Park, this deduction can be as high as $500 or half your monthly rent, whichever is greater. This deduction cannot be more than the reasonable, customary cost of the repair.
 ---
 id: mount prospect info
 continue button field: mount_prospect_info
@@ -620,7 +620,7 @@ question: |
 subquestion: |
   If your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is an emergency, you can repair and deduct if your landlord does not repair the issue as promptly as the situation demands.
 
-  This deduction can be as high as $500 or half your montly rent, whichever is less. This deduction cannot be more than the type of repair would usually cost.
+  This deduction can be as high as $500 or half your monthly rent, whichever is less. This deduction cannot be more than the type of repair would usually cost.
 ---
 id: generic letter
 continue button field: generic_letter
@@ -862,9 +862,16 @@ depends on:
   - rental_property.city
   - rental_property.county
   - emergency_check
+  - has_an_ordinance
 code: |
   if essential_services:
-    if rental_property.city.lower() == "chicago" or rental_property.city.lower() == "oak_park" or end_in_county(rental_property.county).lower() == "cook county":
+    if rental_property.city.lower() == "evanston":
+      if emergency_check:
+        time_limit = "as soon as possible"
+      else:
+        time_limit = "within 7 days"
+  
+    elif rental_property.city.lower() == "oak_park" or (rental_property.city.lower() != "chicago" and end_in_county(rental_property.county).lower() == "cook county"):
       time_limit = "within 24 hours"
     elif rental_property.city.lower() == "mount prospect":
       time_limit = "within 36 hours"
@@ -873,7 +880,7 @@ code: |
   elif emergency_check:
     time_limit = "as soon as possible"
   elif rental_property.city.lower() == "mount prospect":
-    time_limit = "within 7 days"
+    time_limit = "within 14 days"
   elif rental_property.city.lower() == "evanston":
     time_limit = "within 10 days"
   else:
@@ -923,14 +930,14 @@ code: |
   if has_an_ordinance:
     if rental_property.city.lower() == "dekalb" and not emergency_check:
       repair_or_inspect_text = "I could contact the City of DeKalb's Code Enforcement Division and request that an inspector come to the apartment. According to the City of DeKalb’s municipal code, the inspector may require you to repair the issue."
-    elif rental_property.city.lower() != "mount prospect" or essential_services:
+    else:
       repair_or_inspect_text = "I could hire a professional to repair the problem(s). Please note that if I do so, I will send you the paid bill. According to "
       repair_or_inspect_text += which_ordinance
       if rental_property.city.lower() == "chicago":
-        if emergency_check or essential_services:
+        if essential_services:
           repair_or_inspect_text += ", I may be able to deduct the cost of the repair from my rent payment."
         else:
-          repair_or_inspect_text += ", I may be able to deduct up to either $500 or one month's rent, whichever is greater, from my rent payment."
+          repair_or_inspect_text += ", I may be able to deduct up to either $500 or half of one month's rent, whichever is greater, from my rent payment."
       elif rental_property.city.lower() == "dekalb":
         repair_or_inspect_text += ", you will have 30 days to reimburse me for reasonable expenses I have incurred once I present you with the bill."
       elif rental_property.city.lower() == "evanston":
@@ -938,8 +945,11 @@ code: |
           repair_or_inspect_text += ", I may be able to deduct the entire cost of the repair from my rent payments."
         else:
           repair_or_inspect_text += ", I may be able to deduct up to either $500 or half of one month’s rent, whichever is greater, from my rent payment."
-      elif rental_property.city.lower() == "mount prospect" and essential_services:
-        repair_or_inspect_text += ", I may be able to deduct the entire cost of the repair from my rent payment."
+      elif rental_property.city.lower() == "mount prospect":
+        if essential_services:
+          repair_or_inspect_text += ", I may be able to deduct the entire cost of the repair from my rent payment."
+        else:
+          repair_or_inspect_text += ", I could withhold from my monthly rent payment an amount that reasonably reflects the reduced value of the property and is no more than 75% of the rent."
       elif rental_property.city.lower() == "oak park":
         if essential_services:
           repair_or_inspect_text += ", I may be able to deduct the cost of the repair from my rent payment."
@@ -963,7 +973,7 @@ code: |
         reduced_value_text = "If you do not make the repairs within 14 days, I could withhold from my monthly rent payment an amount that reasonably reflects the reduced value of the property."
       else:
         reduced_value_text = "I could withhold from my monthly rent payment an amount that reasonably reflects the reduced value of the property."
-    elif rental_property.city.lower() == "mount prospect":
+    elif rental_property.city.lower() == "mount prospect" and not essential_services:
       reduced_value_text = "If you do not make the repairs within 7 days, I could withhold from my monthly rent payment an amount that reasonably reflects the reduced value of the property and is no more than 75% of the rent."
     elif rental_property.city.lower() == "oak park":
       if essential_services:
@@ -981,7 +991,7 @@ code: |
     elif rental_property.city.lower() == "mount prospect":
       sub_housing_text = "I could find substitute housing. If I do, I would be exempted from paying rent until the issue is fixed. Additionally, I may recover the cost of the substitute housing up to an amount equal to the monthly rent."
     elif rental_property.city.lower() == "oak park":
-      sub_housing_txt = "I could find substitute housing.  If I do, I would be exempted from paying rent until the issue is fixed. Additionally, I may recover the cost of the substitute housing up to an amount equal to the monthly rent and reasonable fees."
+      sub_housing_text = "I could find substitute housing.  If I do, I would be exempted from paying rent until the issue is fixed. Additionally, I may recover the cost of the substitute housing up to an amount equal to the monthly rent and reasonable fees."
     elif ordinance_check == "cook":
       sub_housing_text = "I could find substitute housing.  If I do, I would be exempted from paying rent until the issue is fixed. Additionally, I may recover the cost of the substitute housing up to an amount equal to the monthly rent and reasonable fees."
     elif rental_property.city.lower() == "urbana":
@@ -1008,6 +1018,9 @@ code: |
         termination_text = "I could terminate the rental agreement if you do not repair the issue within 72 hours. If, at that time, I choose to terminate the agreement, I would vacate the property either within one month or by the end of the next rental period, whichever is later. If I do not vacate the property by then, the rental agreement shall remain in effect."
       else:
         termination_text = "I could terminate the rental agreement if you do not repair the issue within 14 days. If, at that time, I choose to terminate the agreement, I would vacate the property either within one month or by the end of the next rental period, whichever is later. If I do not vacate the property by then, the rental agreement shall remain in effect."
+    elif ordinance_check == "urbana":  
+      if essential_services or emergency_check:    
+        termination_text = "I could terminate the rental agreement if you do not repair the issue within 14 days. If, at that time, I choose to terminate the agreement, I would vacate the property. If I do not vacate the property by then, the rental agreement shall remain in effect."
 
   option_count = 0
   if repair_or_inspect_text != "":
