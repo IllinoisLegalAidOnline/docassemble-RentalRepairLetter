@@ -221,7 +221,7 @@ subquestion: |
 ---
 id: emergency check
 question: |
-  Is the issue in need of repair an emergency?
+  Is the issue an emergency?
 subquestion: |
   An emergency issue is one that threatens your life or safety.
 
@@ -670,9 +670,10 @@ subquestion: |
   <li>The shower in the master bathroom will not turn off.</li>
   <li>There is a hole in the floor of the bedroom.</li>
   </ol></p>
+  
 fields:
   - Repairs: repairs_needed
-    input type: area
+    input type: area  
     rows: 8
 ---
 id: landlord name
@@ -707,7 +708,7 @@ fields:
   #  required: False   
   #  js hide if:
   #    val('unknown_landlord') === true
-  - I do not know.: unknown_landlord
+  - I do not know. I want to make a letter that does not name a specific person or company.: unknown_landlord
     datatype: yesnowide
 ---
 template: no_landlord
@@ -747,7 +748,7 @@ fields:
   - ZIP code: landlord.address.zip
     js hide if:
       val('unknown_address') === true
-  - I do not know.: unknown_address
+  - I do not know. I do not want to include my landlord's address in the letter.: unknown_address
     datatype: yesnowide
 ---
 id: sending without an address
