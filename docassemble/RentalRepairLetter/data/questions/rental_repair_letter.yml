@@ -195,9 +195,9 @@ question: |
 subquestion: |
   In Illinois, renters have a right to a habitable unit. This means that your landlord must keep your rental unit in a livable and safe condition. Your landlord must also maintain all services your lease agreement says they will take care of.
 
-  Landlords have to follow local building and maintenance codes. They must make repairs in a timely manner, and they must provide pest control if needed.
-
-  To learn more about your landlord's duties, read ILAO's article on [**legal duties of your landlord**](https://www.illinoislegalaid.org/legal-information/legal-duties-my-landlord).
+  Landlords have to follow local building and maintenance codes. They must make repairs in a timely manner.
+  
+  Landlords also must provide pest control if needed. To learn more about pest control, read ILAO's article on [**dealing with pests in rental housing**](https://illinoislegalaid.org/node/187141).
 ---
 id: major issues overview
 continue button field: about_major_issues
@@ -215,7 +215,14 @@ continue button field: deduct_overview
 question: |
   Repair and deduct
 subquestion: |
-  If your landlord does not make a needed repair, you may be able to "repair and deduct." This means you can pay a professional to make the repairs, and then deduct that amount from your rent. To learn more, read ILAO's article on [**what to do if your landlord doesn't make repairs**](https://www.illinoislegalaid.org/legal-information/my-landlord-doesnt-make-repairs-what-should-i-do).
+  If your landlord does not make a needed repair, you may be able to "repair and deduct." To repair and deduct, you must:
+
+  * Send a letter to your landlord telling them about the problem,
+  * Give the landlord time to repair the issue,
+  * Pay a professional to make the repairs, and 
+  * Deduct some of the repair cost from your rent. 
+  
+  To learn more, read ILAO's article on [**what to do if your landlord doesn't make repairs**](https://www.illinoislegalaid.org/legal-information/my-landlord-doesnt-make-repairs-what-should-i-do).
 
   **Note:** If you choose to repair and deduct, your landlord may decide to try and evict you. You should [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before deducting the cost of a repair from your rent.
 ---
@@ -288,6 +295,8 @@ buttons:
 id: live in property
 question: |
   Do you live at ${rental_property.on_one_line(bare=True)}?
+subquestion: |
+  If you normally live there but are staying somewhere else because of the issue you need repaired, click **Yes**.
 fields:
   - no label: live_in_property
     datatype: yesnoradio
@@ -320,7 +329,7 @@ continue button field: cause_info
 question: |
   Repair options
 subquestion: |
-  Based on your answers, your landlord is not responsible for the cost of this repair. This program can still make a letter that asks your landlord to fix the problem. If you fix the problem yourself, you will not be able to deduct the cost of the repair from your rent payment.
+  Based on your answers, your landlord probably is not responsible for the cost of this repair. This program can still make a letter that asks your landlord to fix the problem. If you fix the problem yourself, you may not be able to deduct the cost of the repair from your rent payment.
 
   Your lease or rental agreement may give you other options. If you live in public housing or use a Housing Choice Voucher, there are other ways to report problems.
 
@@ -334,7 +343,7 @@ subquestion: |
   % if rental_property.city.lower() == "chicago":
   * A medical, educational, or religious facility,
   * A hotel, motel, or boarding house,
-  * Something you have signed a contract to buy,
+  * A place you have signed a contract to buy,
   * An overnight shelter,
   * A place you had to rent because the landlord is your employer, and the job required you to rent there, or
   * A co-op.
@@ -347,14 +356,14 @@ subquestion: |
   * A medical, educational, religious, or retirement facility,
   * A hotel or motel,
   * A fraternity or social organization,
-  * Something you have signed a contract to buy,
+  * A place you have signed a contract to buy,
   * A co-op, or
   * An educational institution.
   % elif rental_property.city.lower() == "mount prospect":
   * A medical, educational, religious, or retirement facility,
   * A residential care home,
   * A hotel or motel, or
-  * Something you have signed a contract to buy.
+  * A place you have signed a contract to buy.
   % elif rental_property.city.lower() == "oak park":
   * A hotel or motel,
   * A medical, educational, religious, or retirement facility,
@@ -362,13 +371,13 @@ subquestion: |
   * A school dormitory,
   * A temporary or transitional shelter,
   * A co-op,
-  * Something you have signed a contract to buy, or
+  * A place you have signed a contract to buy, or
   * A place you had to rent because the landlord is your employer, and the job required you to rent there.
   % elif rental_property.city.lower() == "urbana":
   * A medical, educational, religious, or retirement facility,
   * A hotel, motel, or tourist home,
   * A fraternity or social organization,
-  * Something you have signed a contract to buy, or
+  * A place you have signed a contract to buy, or
   * A place you had to rent because the landlord is your employer, and the job required you to rent there.
   % elif end_in_county(rental_property.county).lower() == "cook county":
   * A medical, educational, religious, or retirement facility,
@@ -376,7 +385,7 @@ subquestion: |
   * An overnight shelter,
   * A school dormitory,
   * A shelter or a single-room-occupancy (SRO),
-  * Something you have signed a contract to buy,
+  * A place you have signed a contract to buy,
   * A place you had to rent because the landlord is your employer, and the job required you to rent there, or
   * An owner-occupied co-op.
   % else:
@@ -423,7 +432,7 @@ continue button field: utility_note
 question: |
   About utility issues
 subquestion: |
-  You or your landlord may need to contact the utility supplier to repair this issue.
+  You or your landlord may need to contact the utility supplier to repair this issue. You could also file a complaint to the [**Illinois Commerce Commission**](https://www.icc.illinois.gov/complaints/).
 
   You may want to talk to a lawyer about this issue. Use **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)** to find free or low-cost legal services in your area.
 ---
@@ -501,7 +510,7 @@ continue button field: urbana_info
 question: |
   Rental repair in Urbana
 subquestion:
-  If your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the reasonable cost of that repair from your rent. In Urbana, this deduction can be as much as 2 months' rent.
+  If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself and deduct the reasonable cost of that repair from your rent. In Urbana, this deduction can be as much as 2 months' rent.
 
   Also, if the issue involves a disruption of essential services and your landlord does not repair it promptly, you may obtain substitute housing and deduct the average cost of a hotel or motel room in Urbana from your rent. If you are interested in pursuing this option, you may need to **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 ---
@@ -517,7 +526,7 @@ continue button field: chicago_info
 question: |
   Rental repair in Chicago
 subquestion: |
-  If your landlord does not repair the issue **within 14 days** for a routine issue or within 24 hours for a disruption of essential services, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent.
+  If your landlord does not repair the issue **within 14 days** for a routine issue or within 24 hours for a disruption of essential services, you can hire a repairperson yourself and deduct the cost of that repair from your rent.
 
   In Chicago, this deduction can be as high as $500 or half your monthly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost.
 ---
@@ -530,7 +539,7 @@ subquestion: |
 
   * You could pay a reduced monthly rent that reflects how much the issue has lowered the value of your apartment.
   * If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed.
-  * If you are having an issue with essential services, you could end the rental agreement if your landlord does not make the necessary repairs. If you do so, you would have to move out of your apartment within 30 days.
+  * If you are having an issue with essential services, you could end the rental agreement if your landlord does not make the necessary repairs. If you do so, you would have to move out of your apartment within 30 days. To learn more, read ILAO's article on [**negotiating a move-out agreement**](https://illinoislegalaid.org/node/187931).
 
   **Note:** These options have specific requirements that could affect your rental agreement. If you are interested in these options, we recommend you talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 ---
@@ -550,7 +559,7 @@ continue button field: evanston_info
 question: |
   Rental repair in Evanston
 subquestion: |
-  If your landlord does not repair the issue **within 10 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as necessary.
+  If your landlord does not repair the issue **within 10 days**, you can hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as necessary.
 
   In Evanston, this deduction can be as high as $500 or half your monthly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost.
 ---
@@ -563,7 +572,7 @@ subquestion: |
 
   * You could pay a reduced monthly rent that reflects how much the issue has lowered the value of your apartment.
   * If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed. You may be able to recover some of the cost of the substitute housing from your landlord.
-  * If you are having an issue with essential services, you could end the rental agreement if your landlord does not make the necessary repairs within 7 days.
+  * If you are having an issue with essential services, you could end the rental agreement if your landlord does not make the necessary repairs within 7 days. To learn more, read ILAO's article on [**negotiating a move-out agreement**](https://illinoislegalaid.org/node/187931).
 
   **Note:** These options have specific requirements that could affect your rental agreement. If you are interested in these options, we recommend you talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 ---
@@ -572,7 +581,7 @@ continue button field: oak_park_info
 question: |
   Rental repair in Oak Park
 subquestion: |
-  If your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
+  If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
 
   In Oak Park, this deduction can be as high as $500 or half your monthly rent, whichever is greater. This deduction cannot be more than the reasonable, customary cost of the repair.
 ---
@@ -581,9 +590,9 @@ continue button field: mount_prospect_info
 question: |
   Rental repair in Mount Prospect
 subquestion: |
-  If the issue does not involve a disruption of essential services and your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. This deduction can be as high as $500 or half your monthly rent, whichever is less.
+  If the issue does not involve a disruption of essential services and your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself and deduct the cost of that repair from your rent. This deduction can be as high as $500 or half your monthly rent, whichever is less.
 
-  If the issue involves a disruption of essential services and your landlord does not repair it within 36 hours, you will be able to hire a repairperson yourself and deduct the entire cost of that repair from your rent.
+  If the issue involves a disruption of essential services and your landlord does not repair it within 36 hours, you can hire a repairperson yourself and deduct the entire cost of that repair from your rent.
 
   Alternatively, you can hold back a portion of the rent that reflects the reduced value of the rental unit. If you are interested in pursuing this option, you should talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 
@@ -594,11 +603,9 @@ continue button field: cook_info
 question: |
   Rental repair in Cook County
 subquestion: |
-  If your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
+  If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
 
   In Cook County, this deduction can be as high as $500 or half your monthly rent, whichever is greater. If the issue is a disruption of essential services, the deduction can be more than $500. This deduction cannot be more than the reasonable, customary cost of the repair.
-
-  Alternatively, you can hold back a portion of the rent that reflects the reduced value of the rental unit. If you are interested in pursuing this option, you should talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 ---
 id: cook county options
 continue button field: cook_options
@@ -607,8 +614,8 @@ question: |
 subquestion: |
   Cook County laws give you more options than just repairing and deducting.
 
+  * You could end the rental agreement if your landlord does not make the necessary repairs within 14 days. If you do so, you would have to move out either within a month or by the end of the next rental period, whichever is later. To learn more, read ILAO's article on [**negotiating a move-out agreement**](https://illinoislegalaid.org/node/187931).
   * You could pay a reduced monthly rent that reflects how much the issue has lowered the value of your apartment.
-  * You could end the rental agreement if your landlord does not make the necessary repairs within 14 days. If you do so, you would have to move out either within a month or by the end of the next rental period, whichever is later.
   * If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed. You may be able to recover some of the cost of the substitute housing from your landlord.
 
   **Note:** These options have specific requirements that could affect your rental agreement. If you are interested in these options, we recommend you talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
@@ -618,7 +625,7 @@ continue button field: illinois_info
 question: |
   Rental repair in Illinois
 subquestion: |
-  If your landlord does not repair the issue **within 14 days**, you will be able to hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is an emergency, you can repair and deduct if your landlord does not repair the issue as promptly as the situation demands.
+  If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is an emergency, you can repair and deduct if your landlord does not repair the issue as promptly as the situation demands.
 
   This deduction can be as high as $500 or half your monthly rent, whichever is less. This deduction cannot be more than the type of repair would usually cost.
 ---
@@ -836,7 +843,13 @@ continue button field: after_the_letter
 question: |
   After sending your letter
 subquestion: |
+  % if time_limit[-4:] == "days":
+  After getting the letter, your landlord will have to make the repair **${time_limit}**. You should keep paying rent during that time. After that time limit, you can hire a professional to make the repair. You must send your landlord a copy of the paid bill.
+  % elif time_limit == "as soon as possible":
+  After getting the letter, your landlord will have to make the repair **${time_limit}**. If they do not, you can hire a professional to make the repair. You must send your landlord a copy of the paid bill.
+  % else:
   After getting the letter, your landlord will have to make the repair **${time_limit}**. After that time limit, you can hire a professional to make the repair. You must send your landlord a copy of the paid bill.
+  % endif
 
   If the landlord does not reimburse you, you can deduct ${deduction_amount}.
 
@@ -932,20 +945,20 @@ code: |
     if rental_property.city.lower() == "dekalb" and not emergency_check:
       repair_or_inspect_text = "I could contact the City of DeKalb's Code Enforcement Division and request that an inspector come to the apartment. According to the City of DeKalb’s municipal code, the inspector may require you to repair the issue."
     else:
-      repair_or_inspect_text = "I could hire a professional to repair the problem(s). Please note that if I do so, I will send you the paid bill. According to "
+      repair_or_inspect_text = "I could hire a professional to repair the problem(s). Please note that if I do so, I will send you a copy of the paid bill. According to "
       repair_or_inspect_text += which_ordinance
       if rental_property.city.lower() == "chicago":
         if essential_services:
           repair_or_inspect_text += ", I may be able to deduct the cost of the repair from my rent payment."
         else:
-          repair_or_inspect_text += ", I may be able to deduct up to either $500 or half of one month's rent, whichever is greater, from my rent payment."
+          repair_or_inspect_text += ", I may be able to deduct up to either $500 or half of one month's rent, whichever is greater, from my rent payment after the repair."
       elif rental_property.city.lower() == "dekalb":
         repair_or_inspect_text += ", you will have 30 days to reimburse me for reasonable expenses I have incurred once I present you with the bill."
       elif rental_property.city.lower() == "evanston":
         if essential_services:
           repair_or_inspect_text += ", I may be able to deduct the entire cost of the repair from my rent payments."
         else:
-          repair_or_inspect_text += ", I may be able to deduct up to either $500 or half of one month’s rent, whichever is greater, from my rent payment."
+          repair_or_inspect_text += ", I may be able to deduct up to either $500 or half of one month’s rent, whichever is greater, from my rent payment after the repair."
       elif rental_property.city.lower() == "mount prospect":
         if essential_services:
           repair_or_inspect_text += ", I may be able to deduct the entire cost of the repair from my rent payment."
@@ -955,16 +968,16 @@ code: |
         if essential_services:
           repair_or_inspect_text += ", I may be able to deduct the cost of the repair from my rent payment."
         else:
-          repair_or_inspect_text += ", I may be able to deduct as much as $500 or half my monthly rent, whichever is greater, from my rent payment."
+          repair_or_inspect_text += ", I may be able to deduct as much as $500 or half my monthly rent, whichever is greater, from my rent payment after the repair."
       elif rental_property.city.lower() == "urbana":
         repair_or_inspect_text += ", I may be able to deduct as much as twice my monthly rent from my rent payments to cover the cost of the repair."  
       elif ordinance_check == "cook":
         if essential_services:
           repair_or_inspect_text += ", I may be able to deduct the entire cost of the repair from my rent payments."
         else:
-          repair_or_inspect_text += ", I may be able to deduct as much as $500 or half my monthly rent, whichever is greater, from my rent payment."
+          repair_or_inspect_text += ", I may be able to deduct as much as $500 or half my monthly rent, whichever is greater, from my rent payment after the repair."
       else:
-        repair_or_inspect_text += ", I may be able to deduct as much as $500 or half my monthly rent, whichever is less, from my rent payment."
+        repair_or_inspect_text += ", I may be able to deduct as much as $500 or half my monthly rent, whichever is less, from my rent payment after the repair."
 
   if has_an_ordinance:
     if rental_property.city.lower() == "chicago":
