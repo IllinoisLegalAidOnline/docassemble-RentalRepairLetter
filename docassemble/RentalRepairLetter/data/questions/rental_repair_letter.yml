@@ -218,7 +218,7 @@ subquestion: |
   If your landlord does not make a needed repair, you may be able to "repair and deduct." To repair and deduct, you must:
 
   * Send a letter to your landlord telling them about the problem,
-  * Give the landlord time to repair the issue,
+  * Give the landlord time--usually 14 days--to repair the issue,
   * Pay a professional to make the repairs, and 
   * Deduct some of the repair cost from your rent. 
   
@@ -612,13 +612,15 @@ continue button field: cook_options
 question: |
   Additional options in Cook County
 subquestion: |
-  Cook County laws give you more options than just repairing and deducting.
+  Cook County laws give you more options than just repairing and deducting. A lawyer can help you understand which is best for you. You can use **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)** to talk with a lawyer in Cook County.
+
+  Here are some of your options:
 
   * You could end the rental agreement if your landlord does not make the necessary repairs within 14 days. If you do so, you would have to move out either within a month or by the end of the next rental period, whichever is later. To learn more, read ILAO's article on [**negotiating a move-out agreement**](https://illinoislegalaid.org/node/187931).
   * You could pay a reduced monthly rent that reflects how much the issue has lowered the value of your apartment.
   * If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed. You may be able to recover some of the cost of the substitute housing from your landlord.
 
-  **Note:** These options have specific requirements that could affect your rental agreement. If you are interested in these options, we recommend you talk to a lawyer using **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
+  **Note:** These options have specific requirements that could affect your rental agreement. Talking with a lawyer can help you figure out how to proceed. Use **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)** to find a free or low-cost lawyer near you.
 ---
 id: illinois info
 continue button field: illinois_info
@@ -844,13 +846,15 @@ question: |
   After sending your letter
 subquestion: |
   % if time_limit[-4:] == "days":
-  After getting the letter, your landlord will have to make the repair **${time_limit}**. You should keep paying rent during that time. After that time limit, you can hire a professional to make the repair. You must send your landlord a copy of the paid bill.
+  After getting the letter, your landlord will have to make the repair **${time_limit}**. If the landlord does not make the repair during that time, you can hire a professional to make the repair. You must send your landlord a copy of the paid bill.
   % elif time_limit == "as soon as possible":
   After getting the letter, your landlord will have to make the repair **${time_limit}**. If they do not, you can hire a professional to make the repair. You must send your landlord a copy of the paid bill.
   % else:
-  After getting the letter, your landlord will have to make the repair **${time_limit}**. After that time limit, you can hire a professional to make the repair. You must send your landlord a copy of the paid bill.
+  After getting the letter, your landlord will have to make the repair **${time_limit}**. If the landlord does not make the repair during that time, you can hire a professional to make the repair. You must send your landlord a copy of the paid bill.
   % endif
-
+  
+  **Note:** You should keep paying rent during the time that the landlord has to make the repair.
+  
   If the landlord does not reimburse you, you can deduct ${deduction_amount}.
 
   % if ordinance_check == "chicago":
