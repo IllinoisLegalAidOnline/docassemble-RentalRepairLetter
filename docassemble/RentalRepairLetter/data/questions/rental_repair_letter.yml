@@ -112,8 +112,10 @@ code: |
     dekalb_routine_after
   elif has_an_ordinance:
     after_the_letter
+    repair_person_info
   else:
     generic_after
+    
 
   nav.set_section('section_download')
   set_progress(100)
@@ -162,7 +164,7 @@ subquestion: |
 
   This program helps you make a letter asking your landlord to repair an issue with your home. The letter can also tell your landlord about your legal rights as a tenant.
   
-  Learn about [**what to do if your landlord doesn't make repairs**](https://www.illinoislegalaid.org/legal-information/my-landlord-doesnt-make-repairs-what-should-i-do).
+  Learn about [**requesting rental repairs**](https://www.illinoislegalaid.org/node/83606).
 field: sees_nav_bar
 ---
 id: instructions
@@ -195,7 +197,7 @@ question: |
 subquestion: |
   In Illinois, renters have a right to a habitable unit. This means that your landlord must keep your rental unit in a livable and safe condition. Your landlord must also maintain all services your lease agreement says they will take care of.
 
-  Landlords have to follow local building and maintenance codes. They must make repairs in a timely manner.
+  Landlords have to follow local building and maintenance codes. They must make repairs in a timely manner. Learn more about your [**rental repair rights**](https://illinoislegalaid.org/node/188116).
   
   Landlords also must provide pest control if needed. To learn more about pest control, read ILAO's article on [**dealing with pests in rental housing**](https://illinoislegalaid.org/node/187141).
 ---
@@ -219,8 +221,8 @@ subquestion: |
 
   * Send a letter to your landlord telling them about the problem,
   * Give the landlord time--usually 14 days--to repair the issue,
-  * Pay a professional to make the repairs, and 
-  * Deduct some of the repair cost from your rent. 
+  * If the repair is not done, pay a professional to make the repairs, and 
+  * Deduct some or all of the repair cost from your rent. 
   
   To learn more, read ILAO's article on [**what to do if your landlord doesn't make repairs**](https://www.illinoislegalaid.org/legal-information/my-landlord-doesnt-make-repairs-what-should-i-do).
 
@@ -952,6 +954,20 @@ code: |
     deduction_amount = "as much as $500 or half your monthly rent, whichever is less, from your rent"
 
   deduction_code_block = True
+---
+id: repair person info
+continue button field: repair_person_info
+question: |
+  About the repairperson
+subquestion: |
+  Tenants who repair and deduct can only use professionals to do the repair. The repairperson must:
+
+  * Hold a valid license or certificate as required by state or municipal law,
+  * Be adequately insured to cover any bodily harm or property damage caused by negligence,
+  * Complete the repair in a “workmanlike manner,” meaning that the repair meets industry or professional standards, and
+  * Not be related to the tenant.
+
+  You cannot deduct the repair cost if you do the repair yourself.
 ---
 depends on:
   - has_an_ordinance
