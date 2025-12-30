@@ -164,7 +164,7 @@ subquestion: |
 
   This program helps you make a letter asking your landlord to repair an issue with your home. The letter can also tell your landlord about your legal rights as a tenant.
   
-  Learn about [**requesting rental repairs**](https://www.illinoislegalaid.org/node/83606).
+  Learn how to [**request rental repairs**](https://www.illinoislegalaid.org/node/83606).
 field: sees_nav_bar
 ---
 id: instructions
@@ -459,32 +459,32 @@ code: |
   ordinance_check = "Value not set"
   if has_an_ordinance:
     if rental_property.city.lower() == "chicago":
-      which_ordinance = "chapter 5-12 of the Municipal Code of Chicago"
-      specific_citation = "the Chicago, Illinois Municipal Code, 5-12-110"
+      which_ordinance = "the Municipal Code of Chicago, chapter 5-12"
+      specific_citation = "the Municipal Code of Chicago, chapter 5-12-110"
       ordinance_check = "chicago"
     elif rental_property.city.lower() == "urbana":
-      which_ordinance = "chapter 12.5 of the City of Urbana's Code of Ordinances"
-      specific_citation = "the Urbana, Illinois Code of Ordinances, 12.5-23"
+      which_ordinance = "the City of Urbana's Code of Ordinances, chapter 12.5"
+      specific_citation = "the City of Urbana's Code of Ordinances, chapter 12.5-23"
       ordinance_check = "urbana"
     elif rental_property.city.lower() == "evanston":
-      which_ordinance = "chapter 5-3 of the City of Evanston’s Code of Ordinances"
-      specific_citation = "the Evanston, Illinois Code of Ordinances, 5-3-7-3 to 5-3-7-4"
+      which_ordinance = "the City of Evanston’s Code of Ordinances, chapter 5-3"
+      specific_citation = "the City of Evanston’s Code of Ordinances, chapters 5-3-7-3 and 5-3-7-4"
       ordinance_check = "evanston"
     elif rental_property.city.lower() == "oak park":
-      which_ordinance = "chapter 12, article 6 of Oak Park's Code of Ordinances"
-      specific_citation = "the Oak Park, Illinois Code of Ordinances, Section 12-6-6"
+      which_ordinance = "Oak Park's Code of Ordinances, chapter 12, article 6"
+      specific_citation = "Oak Park's Code of Ordinances, chapter 12, article 6-6"
       ordinance_check = "oak park"
     elif rental_property.city.lower() == "mount prospect":
-      which_ordinance = "chapter 23, article 18 of Mount Prospect's Code of Ordinances"
-      specific_citation = "the Mount Prospect, Illinois Code of Ordinances, 23.1808"
+      which_ordinance = "Mount Prospect's Code of Ordinances, chapter 23, article 18"
+      specific_citation = "Mount Prospect's Code of Ordinances, chapter 23, article 18.08"
       ordinance_check = "mount prospect"
     elif rental_property.city.lower() == "dekalb":
-      which_ordinance = "chapter 10 of the City of DeKalb’s municipal code"
-      specific_citation = "the DeKalb, Illinois Municipal Code, 10-15"
+      which_ordinance = "the City of DeKalb’s municipal code, chapter 10 "
+      specific_citation = "the City of DeKalb’s municipal code, chapter 10-15"
       ordinance_check = "dekalb"
     elif end_in_county(rental_property.county).lower() == "cook county":
-      which_ordinance = "chapter 42, article 4 of Cook County’s Code of Ordinances"
-      specific_citation = "the Cook County, Illinois Code of Ordinances, 42-106"
+      which_ordinance = "Cook County’s Code of Ordinances, chapter 42, article 4"
+      specific_citation = "Cook County’s Code of Ordinances, chapter 42, article 4, section 42-106"
       ordinance_check = "cook"
     else:
       which_ordinance = "the Illinois Residential Tenants' Right to Repair Act"
@@ -552,7 +552,7 @@ subquestion: |
   * If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed.
   * If you are having an issue with essential services, you could end the rental agreement if your landlord does not make the necessary repairs. If you do so, you would have to move out of your apartment within 30 days. To learn more, read ILAO's article on [**negotiating a move-out agreement**](https://illinoislegalaid.org/node/187931).
 
-  **Note:** These options have specific requirements that could affect your rental agreement. You may be able to learn more from [**Rentervention, Law Center for Better Housing's free resource for Chicago renters**](https://lcbh.org/get-legal-help/#rentervention). 
+  **Note:** These options have specific requirements that could affect your rental agreement. [**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you advice. 
   
   Talking with a lawyer can help you figure out how to proceed. Use **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)** to find a free or low-cost lawyer near you.
 ---
@@ -565,7 +565,7 @@ subquestion: |
 
   If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed.
 
-  **Note:** This option has specific requirements that could affect your rental agreement. You may be able to learn more from [**Rentervention, Law Center for Better Housing's free resource for Chicago renters**](https://lcbh.org/get-legal-help/#rentervention). 
+  **Note:** These options have specific requirements that could affect your rental agreement. [**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you advice.
   
   Talking with a lawyer can help you figure out how to proceed. Use **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)** to find a free or low-cost lawyer near you.
 ---
@@ -589,7 +589,7 @@ subquestion: |
   * If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed. You may be able to recover some of the cost of the substitute housing from your landlord.
   * If you are having an issue with essential services, you could end the rental agreement if your landlord does not make the necessary repairs within 7 days. To learn more, read ILAO's article on [**negotiating a move-out agreement**](https://illinoislegalaid.org/node/187931).
 
-  **Note:** These options have specific requirements that could affect your rental agreement.[**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you more information.
+  **Note:** These options have specific requirements that could affect your rental agreement. [**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you advice.
   
   Talking with a lawyer can help you figure out how to proceed. Use **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)** to find a free or low-cost lawyer near you.
 ---
@@ -602,7 +602,7 @@ subquestion: |
 
   In Oak Park, this deduction can be as high as $500 or half your monthly rent, whichever is greater. This deduction cannot be more than the reasonable, customary cost of the repair.
 
-  [**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you more information.
+  [**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you advice.
 ---
 id: mount prospect info
 continue button field: mount_prospect_info
@@ -613,9 +613,11 @@ subquestion: |
 
   If the issue involves a disruption of essential services and your landlord does not repair it within 36 hours, you can hire a repairperson yourself and deduct the entire cost of that repair from your rent.
 
-  Alternatively, you can hold back a portion of the rent that reflects the reduced value of the rental unit. [**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you more information.
+  Alternatively, you can hold back a portion of the rent that reflects the reduced value of the rental unit.
 
-  If the issue involves a disruption to essential services, you also have the option to obtain substitute housing. If you do so, you would be exempted from paying rent during this time and you could recover some of the cost of the substitute housing. [**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you more information.
+  If the issue involves a disruption to essential services, you also have the option to obtain substitute housing. If you do so, you would be exempted from paying rent during this time and you could recover some of the cost of the substitute housing.
+
+  **Note:** These options have specific requirements that could affect your rental agreement. [**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you advice.
   
   Talking with a lawyer can help you figure out how to proceed. Use **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)** to find a free or low-cost lawyer near you.
 ---
@@ -641,7 +643,7 @@ subquestion: |
   * You could pay a reduced monthly rent that reflects how much the issue has lowered the value of your apartment.
   * If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed. You may be able to recover some of the cost of the substitute housing from your landlord.
 
-  **Note:** These options have specific requirements that could affect your rental agreement. [**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you more information.
+  **Note:** These options have specific requirements that could affect your rental agreement. [**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you advice.
   
   Talking with a lawyer can help you figure out how to proceed. Use **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)** to find a free or low-cost lawyer near you.
 ---
@@ -906,6 +908,7 @@ depends on:
   - has_an_ordinance
 code: |
   if essential_services:
+    emergency_check
     if rental_property.city.lower() == "evanston":
       if emergency_check:
         time_limit = "as soon as possible"
@@ -964,7 +967,7 @@ subquestion: |
 
   * Hold a valid license or certificate as required by state or municipal law,
   * Be adequately insured to cover any bodily harm or property damage caused by negligence,
-  * Complete the repair in a “workmanlike manner,” meaning that the repair meets industry or professional standards, and
+  * Complete the repair in a "workmanlike manner,"" meaning that the repair meets industry or professional standards, and
   * Not be related to the tenant.
 
   You cannot deduct the repair cost if you do the repair yourself.
