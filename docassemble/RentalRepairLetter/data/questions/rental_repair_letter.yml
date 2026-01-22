@@ -27,7 +27,7 @@ sections:
   - section_intro: Start
   - section_property: Rental property
   - section_repair: Repairs
-  - section_letter: Letter
+  - section_letter: Letter details
   - section_download: Download  
 ---
 # interview order block
@@ -164,7 +164,7 @@ subquestion: |
 
   This program helps you make a letter asking your landlord to repair an issue with your home. The letter can also tell your landlord about your legal rights as a tenant.
   
-  Learn how to [**request rental repairs**](https://www.illinoislegalaid.org/node/83606).
+  For step-by-step instructions, see ILAO's how-to article, [**Requesting rental repairs**](https://www.illinoislegalaid.org/node/83606).
 field: sees_nav_bar
 ---
 id: instructions
@@ -967,7 +967,7 @@ subquestion: |
 
   * Hold a valid license or certificate as required by state or municipal law,
   * Be adequately insured to cover any bodily harm or property damage caused by negligence,
-  * Complete the repair in a "workmanlike manner,"" meaning that the repair meets industry or professional standards, and
+  * Complete the repair in a "workmanlike manner," meaning that the repair meets industry or professional standards, and
   * Not be related to the tenant.
 
   You cannot deduct the repair cost if you do the repair yourself.
@@ -1162,7 +1162,7 @@ content: |
 ---
 objects:
   - instructions: ALDocument.using(title="Instructions", filename="instructions.pdf", has_addendum=False, enabled=True)
-  - letter: ALDocument.using(title="Rental Repair Letter", filename="rental_repair_letter.pdf", has_addendum=False, enabled=True)
+  - letter: ALDocument.using(title="Rental repair letter", filename="rental_repair_letter.pdf", has_addendum=False, enabled=True)
 ---
 objects:
   - al_user_bundle: ALDocumentBundle.using(elements=[instructions, letter], filename="rental_repair_letter.pdf", title="All forms")
@@ -1338,11 +1338,11 @@ review:
       
       ${repairs_needed}
 ---
-section: Letter
+section: Letter details
 id: letter review screen
 event: section_letter
 question: |
-  Letter
+  Letter details
 subquestion: |
   Edit your answers below.
 review:
