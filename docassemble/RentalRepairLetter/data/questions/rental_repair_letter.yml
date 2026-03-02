@@ -176,7 +176,7 @@ subquestion: |
 
   * Your address,
   * The repairs you need, and
-  * The name and address of your landlord or property manager.
+  * A way to contact your landlord or property manager.
 
   Set aside 5 to 10 minutes to finish this program. You can log in and save your work to return to later. 
 
@@ -199,7 +199,7 @@ subquestion: |
 
   Landlords have to follow local building and maintenance codes. They must make repairs in a timely manner. Learn more about your [**rental repair rights**](https://illinoislegalaid.org/node/188116).
   
-  Landlords also must provide pest control if needed. To learn more about pest control, read ILAO's article on [**dealing with pests in rental housing**](https://illinoislegalaid.org/node/187141).
+  Landlords will sometimes have to provide pest control, but not always. To learn more about pest control, read ILAO's article on [**dealing with pests in rental housing**](https://illinoislegalaid.org/node/187141).
 ---
 id: major issues overview
 continue button field: about_major_issues
@@ -219,10 +219,13 @@ question: |
 subquestion: |
   If your landlord does not make a needed repair, you may be able to "repair and deduct." To repair and deduct, you must:
 
-  * Send a letter to your landlord telling them about the problem,
+  * Send a letter by certified or registered mail to your landlord telling them about the problem,
   * Give the landlord time--usually 14 days--to repair the issue,
-  * If the repair is not done, pay a professional to make the repairs, and 
+  * If the repair is not done, pay a professional to make the repairs, 
+  * Give a copy of the paid repair bill to your landlord, and 
   * Deduct some or all of the repair cost from your rent. 
+
+  You cannot hire a family member to make the repairs.
   
   To learn more, read ILAO's article on [**what to do if your landlord doesn't make repairs**](https://www.illinoislegalaid.org/legal-information/my-landlord-doesnt-make-repairs-what-should-i-do).
 
@@ -232,13 +235,11 @@ id: emergency check
 question: |
   Is the issue an emergency?
 subquestion: |
-  An emergency issue is one that threatens your life or safety.
+  An emergency issue is one that threatens your life or safety. If the issue makes your home uninhabitable, it may be an emergency.
 
-  Structural issues, such as fire, flooding, or termites, are emergency issues.
+  Structural issues, such as fire, flooding, or termites, are emergency issues. A serious plumbing issue is an emergency. A broken air conditioner in the summer or a lack of heat in the winter can be emergencies.
 
-  A serious plumbing issue is an emergency. 
-
-  If the issue makes your home uninhabitable, it is an emergency.
+   You may want to contact your landlord by phone, email, or text message to tell them about the problem quickly. You could also give them a copy of the letter in person. If you do not hear back from your landlord within 24 hours, you may want to contact your local building department or talk with a lawyer to discuss your options. Use **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)** to find free or low-cost legal services in your area.
 fields:
   - no label: emergency_check
     datatype: yesnoradio
@@ -298,7 +299,7 @@ id: live in property
 question: |
   Do you live at ${rental_property.on_one_line(bare=True)}?
 subquestion: |
-  If you normally live there but are staying somewhere else because of the issue you need repaired, click **Yes**.
+  You can still click **Yes** if you normally live there but are temporarily staying somewhere else because of the issue you need repaired.
 fields:
   - no label: live_in_property
     datatype: yesnoradio
@@ -420,11 +421,13 @@ fields:
 ---
 id: utility issue
 question: |
-  Is the issue a service outage caused by a utility supplier?
+  Is the issue that a utility supplier shut off service?
 subquestion: |
   Gas, electricity, and water are all utility services.
 
   A gas or electric company such as ComEd or Nicor Gas are examples of utility suppliers.
+
+  If the issue is a service outage caused by a utility supplier on accident, click **Yes**.
 fields:
   - no label: utility_issue
     datatype: yesnoradio
@@ -521,7 +524,7 @@ continue button field: urbana_info
 question: |
   Rental repair in Urbana
 subquestion:
-  If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself and deduct the reasonable cost of that repair from your rent. In Urbana, this deduction can be as much as 2 months' rent.
+  If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the reasonable cost of that repair from your rent. The repairperson cannot be related to you. In Urbana, the deduction can be as much as 2 months' rent.
 
   Also, if the issue involves a disruption of essential services and your landlord does not repair it promptly, you may obtain substitute housing and deduct the average cost of a hotel or motel room in Urbana from your rent. If you are interested in pursuing this option, you may need to **[Get Legal Help](https://www.illinoislegalaid.org/get-legal-help)**.
 ---
@@ -537,7 +540,7 @@ continue button field: chicago_info
 question: |
   Rental repair in Chicago
 subquestion: |
-  If your landlord does not repair the issue **within 14 days** for a routine issue or within 24 hours for a disruption of essential services, you can hire a repairperson yourself and deduct the cost of that repair from your rent.
+  If your landlord does not repair the issue **within 14 days** for a routine issue or within 24 hours for a disruption of essential services, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you.
 
   In Chicago, this deduction can be as high as $500 or half your monthly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost.
 ---
@@ -574,7 +577,7 @@ continue button field: evanston_info
 question: |
   Rental repair in Evanston
 subquestion: |
-  If your landlord does not repair the issue **within 10 days**, you can hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as necessary.
+  If your landlord does not repair the issue **within 10 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as necessary.
 
   In Evanston, this deduction can be as high as $500 or half your monthly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost.
 ---
@@ -598,7 +601,7 @@ continue button field: oak_park_info
 question: |
   Rental repair in Oak Park
 subquestion: |
-  If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
+  If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
 
   In Oak Park, this deduction can be as high as $500 or half your monthly rent, whichever is greater. This deduction cannot be more than the reasonable, customary cost of the repair.
 
@@ -609,7 +612,7 @@ continue button field: mount_prospect_info
 question: |
   Rental repair in Mount Prospect
 subquestion: |
-  If the issue does not involve a disruption of essential services and your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself and deduct the cost of that repair from your rent. This deduction can be as high as $500 or half your monthly rent, whichever is less.
+  If the issue does not involve a disruption of essential services and your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you. The deduction can be as high as $500 or half your monthly rent, whichever is less.
 
   If the issue involves a disruption of essential services and your landlord does not repair it within 36 hours, you can hire a repairperson yourself and deduct the entire cost of that repair from your rent.
 
@@ -626,7 +629,7 @@ continue button field: cook_info
 question: |
   Rental repair in Cook County
 subquestion: |
-  If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
+  If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
 
   In Cook County, this deduction can be as high as $500 or half your monthly rent, whichever is greater. If the issue is a disruption of essential services, the deduction can be more than $500. This deduction cannot be more than the reasonable, customary cost of the repair.
 ---
@@ -652,7 +655,7 @@ continue button field: illinois_info
 question: |
   Rental repair in Illinois
 subquestion: |
-  If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself and deduct the cost of that repair from your rent. If the issue is an emergency, you can repair and deduct if your landlord does not repair the issue as promptly as the situation demands.
+  If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you. If the issue is an emergency, you can repair and deduct if your landlord does not repair the issue as promptly as the situation demands.
 
   This deduction can be as high as $500 or half your monthly rent, whichever is less. This deduction cannot be more than the type of repair would usually cost.
 ---
@@ -661,7 +664,7 @@ continue button field: generic_letter
 question: |
   About the repair letter
 subquestion: |
-  Based on your answers, this program can make a letter that asks your landlord to fix the problem. If you fix the problem yourself, you will not be able to deduct the cost of the repair from your rent payment.
+  Based on your answers, this program can make a letter that asks your landlord to fix the problem. If you fix the problem yourself, you will not be able to deduct the cost of the repair from your rent payment.
 
   Your lease or rental agreement may give you other rights. If you live in public housing or use a Housing Choice Voucher, there are other ways to report problems.
 
@@ -839,11 +842,11 @@ content: |
   * [**Outlook**](https://outlook.live.com/owa/?nlp=1&signup=1)
   * [**Yahoo**](https://login.yahoo.com/account/create?.lang=en-US&.intl=us)
 ---
-id: delivery_date
+id: delivery date
 question: |
   When do you plan to send or deliver this letter?
 subquestion: |
-  If you are not certain, you can leave this blank and date your letter later.
+  If you are not certain, you can leave this blank for now. You will need to date the letter before you mail it.
 fields:
   - Date: delivery_date
     datatype: date
@@ -862,6 +865,8 @@ subquestion: |
   % endif
 
   Certified mail can take a few days so you may want to deliver a copy of your letter in person or by email.
+
+  Keep a copy of the letter for your records.
 
   This program will not send your letter for you.
 ---
