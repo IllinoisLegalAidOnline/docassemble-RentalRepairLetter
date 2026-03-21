@@ -505,6 +505,8 @@ depends on:
   - rental_property.city
   - rental_property.county
   - emergency_check
+  - units
+  - utility_issue
 code: |
   if tenant_caused or is_excluded_dwelling or utility_issue:
     has_an_ordinance = False
@@ -888,21 +890,21 @@ subquestion: |
   If the landlord does not reimburse you, you can deduct ${deduction_amount}.
 
   % if ordinance_check == "chicago":
-  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) or learn more about [**Chicago's Department of Housing's services for renters**](https://www.chicago.gov/city/en/depts/doh/provdrs/renters/svcs.html).
+  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) or learn more about [**Chicago's Department of Housing's services for renters**](https://www.chicago.gov/city/en/depts/doh/provdrs/renters/svcs.html) before taking action.
   % elif ordinance_check == "dekalb":
-  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) or call the City of DeKalb's Code Enforcement Division at (815) 748-2070.
+  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) or call the City of DeKalb's Code Enforcement Division at (815) 748-2070 before taking action.
   % elif ordinance_check == "oak park":
-  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help).
+  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before taking action.
 
   For more information about renters' rights in Oak Park, read about [**Oak Park's Residential Tenant and Landlord Ordinance**](https://www.oak-park.us/Community/Housing/Residential-Tenant-and-Landlord-Ordinance-RTLO). You can also contact Oak Park's Community Relations Coordinator at community@oak-park.us.
   % elif ordinance_check == "urbana":
   Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) or contact Urbana's [**Community Development Services Department's Building Safety Division**](https://www.urbanail.gov/community-development-services/page/building-safety-division).
   % elif ordinance_check == "cook":
-  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help).
+  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before taking action.
 
   For more information about your rights as a renter and organizations in Cook County that may be able to help you, read about [**Cook County's Residential Tenant Landlord Ordinance**](https://www.cookcountyil.gov/rtlo).
   % else:
-  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help).
+  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before taking action.
   % endif
 ---
 depends on:
@@ -1113,7 +1115,7 @@ question: |
 subquestion: |
   Your letter will ask your landlord to repair the issue as soon as possible.
 
-  If your landlord does not repair the issue, you may want to [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help). You may also want to contact your local building department.
+  If your landlord does not repair the issue, you may want to [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before you take action. You may also want to contact your local building department.
 ---
 id: forms assembling
 continue button field: forms_assembling
