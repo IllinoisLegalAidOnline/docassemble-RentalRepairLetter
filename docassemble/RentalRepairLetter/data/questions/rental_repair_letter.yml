@@ -199,7 +199,7 @@ subquestion: |
 
   Landlords have to follow local building and maintenance codes. They must make repairs in a timely manner. Learn more about your [**rental repair rights**](https://illinoislegalaid.org/node/188116).
   
-  Landlords will sometimes have to provide pest control, but not always. To learn more about pest control, read ILAO's article on [**dealing with pests in rental housing**](https://illinoislegalaid.org/node/187141).
+  Landlords may have to provide pest control. Some infestations of pests and bugs can make a home unlivable. To learn more about pest control, read ILAO's article on [**dealing with pests in rental housing**](https://illinoislegalaid.org/node/187141).
 ---
 id: major issues overview
 continue button field: about_major_issues
@@ -225,11 +225,24 @@ subquestion: |
   * Give a copy of the paid repair bill to your landlord, and 
   * Deduct some or all of the repair cost from your rent. 
 
-  You cannot hire a family member to make the repairs.
+  ${collapse_template(who_repairs)}
   
   To learn more, read ILAO's article on [**what to do if your landlord doesn't make repairs**](https://www.illinoislegalaid.org/legal-information/my-landlord-doesnt-make-repairs-what-should-i-do).
 
-  **Note:** If you choose to repair and deduct, your landlord may decide to try and evict you. You should [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before deducting the cost of a repair from your rent.
+  **Note:** The "repair and deduct" option has specific rules based on where you live. If you choose to repair and deduct, your landlord may decide to try and evict you. You should [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before deducting the cost of a repair from your rent.
+---
+template: who_repairs
+subject: |
+  **Who can make the repairs?**
+content: |
+  Only a professional repairperson can make the repairs. The repairperson must:
+
+  * Hold a valid license or certificate as required by state or municipal law,
+  * Be adequately insured to cover any bodily harm or property damage caused by negligence,
+  * Complete the repair in a "workmanlike manner," meaning that the repair meets industry or professional standards, and
+  * Not be related to you.
+
+  You cannot deduct the repair cost if you do the repair yourself.
 ---
 id: emergency check
 question: |
@@ -536,6 +549,8 @@ question: |
   Rental repair in DeKalb
 subquestion: |
   In DeKalb, you may repair and deduct after "reasonably diligent" attempts to notify your landlord of the issue. After you present your landlord with a paid bill, your landlord will have 30 days to reimburse you for reasonable expenses.
+
+  **Reminder:** If you choose to repair and deduct, your landlord may decide to try and evict you. You should [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before deducting the cost of a repair from your rent.
 ---
 id: chicago info
 continue button field: chicago_info
@@ -545,6 +560,8 @@ subquestion: |
   If your landlord does not repair the issue **within 14 days** for a routine issue or within 24 hours for a disruption of essential services, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you.
 
   In Chicago, this deduction can be as high as $500 or half your monthly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost.
+
+  **Reminder:** If you choose to repair and deduct, your landlord may decide to try and evict you. You should [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before deducting the cost of a repair from your rent.
 ---
 id: chicago options info
 continue button field: chicago_options_info
@@ -582,6 +599,8 @@ subquestion: |
   If your landlord does not repair the issue **within 10 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as necessary.
 
   In Evanston, this deduction can be as high as $500 or half your monthly rent, whichever is greater. This deduction cannot be more than the type of repair would usually cost.
+
+  **Reminder:** If you choose to repair and deduct, your landlord may decide to try and evict you. You should [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before deducting the cost of a repair from your rent.
 ---
 id: evanston options
 continue button field: evanston_options
@@ -607,7 +626,7 @@ subquestion: |
 
   In Oak Park, this deduction can be as high as $500 or half your monthly rent, whichever is greater. This deduction cannot be more than the reasonable, customary cost of the repair.
 
-  [**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you advice.
+  **Reminder:** If you choose to repair and deduct, your landlord may decide to try and evict you. You should [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before deducting the cost of a repair from your rent. [**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you advice.
 ---
 id: mount prospect info
 continue button field: mount_prospect_info
@@ -634,6 +653,8 @@ subquestion: |
   If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
 
   In Cook County, this deduction can be as high as $500 or half your monthly rent, whichever is greater. If the issue is a disruption of essential services, the deduction can be more than $500. This deduction cannot be more than the reasonable, customary cost of the repair.
+
+  **Reminder:** If you choose to repair and deduct, your landlord may decide to try and evict you. You should [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before deducting the cost of a repair from your rent.
 ---
 id: cook county options
 continue button field: cook_options
@@ -660,6 +681,8 @@ subquestion: |
   If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you. If the issue is an emergency, you can repair and deduct if your landlord does not repair the issue as promptly as the situation demands.
 
   This deduction can be as high as $500 or half your monthly rent, whichever is less. This deduction cannot be more than the type of repair would usually cost.
+
+  **Reminder:** If you choose to repair and deduct, your landlord may decide to try and evict you. You should [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before deducting the cost of a repair from your rent.
 ---
 id: generic letter
 continue button field: generic_letter
