@@ -689,7 +689,11 @@ continue button field: generic_letter
 question: |
   About the repair letter
 subquestion: |
+  % if utility_issue:
+  Based on your answers, this program can make a letter that asks your landlord to contact the utility supplier to ask them to fix the problem.
+  % else:
   Based on your answers, this program can make a letter that asks your landlord to fix the problem. If you fix the problem yourself, you will not be able to deduct the cost of the repair from your rent payment.
+  % endif
 
   Your lease or rental agreement may give you other rights. If you live in public housing or use a Housing Choice Voucher, there are other ways to report problems.
 
@@ -711,6 +715,7 @@ depends on:
 code: |
   if utility_issue:
     essential_services = True
+    emergency_check = False
   else:
     essential_services
   utility_code = True
@@ -1304,6 +1309,7 @@ review:
     button: |
       **Is the issue in need of repair an emergency?**
       ${word(yesno(emergency_check))}
+    show if: not utility_issue
   - Edit: utility_issue
     button: |
       **Is the issue a service outage caused by a utility supplier?**
@@ -1358,6 +1364,7 @@ review:
     button: |
       **Is the issue in need of repair an emergency?**
       ${word(yesno(emergency_check))}
+    show if: not utility_issue
   - Edit: essential_services
     button: |
       **Is the issue a problem with essential services?**
@@ -1549,6 +1556,7 @@ review:
     button: |
       **Is the issue in need of repair an emergency?**
       ${word(yesno(emergency_check))}
+    show if: not utility_issue
   - Edit: essential_services
     button: |
       **Is the issue a problem with essential services?**
