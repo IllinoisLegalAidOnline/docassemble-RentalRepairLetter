@@ -75,7 +75,7 @@ code: |
       dekalb_info
     elif rental_property.city.lower() == "chicago":
       chicago_info
-      if utility_issue:
+      if essential_services:
         chicago_utility
       else:
         chicago_options_info
@@ -1323,34 +1323,34 @@ review:
     show if: not utility_issue
   - note: |
       Review your options under [**Cook County's ordinance Page 1**](${url_action('cook_info')}) and [**Cook County's ordinance Page 2**](${url_action('cook_options')}) 
-    show if: ordinance_check == "cook"
+    show if: ordinance_check == "cook" and not utility_issue
   - note: |
       Review your options under [**DeKalb's municipal code**](${url_action('dekalb_info')})
-    show if: ordinance_check == "dekalb"
+    show if: ordinance_check == "dekalb" and not utility_issue
   - note: |
       Review your options under [**Evanston's ordinance Page 1**](${url_action('evanston_info')}) and [**Evanston's ordinance Page 2**](${url_action('evanston_options')}) 
-    show if: ordinance_check == "evanston"
+    show if: ordinance_check == "evanston" and not utility_issue
   - note: |
       Review your options under [**Oak Park's ordinance**](${url_action('oak_park_info')})
-    show if: ordinance_check == "oak park"
+    show if: ordinance_check == "oak park" and not utility_issue
   - note: |
       Review your options under the [**Mount Prospect Village Code**](${url_action('mount_prospect_info')})
-    show if: ordinance_check == "mount prospect"
+    show if: ordinance_check == "mount prospect" and not utility_issue
   - note: |
       Review your options under [**Chicago's ordinance Page 1**](${url_action('chicago_info')}) and [**Chicago's ordinance Page 2**](${url_action('chicago_utility')}) 
-    show if: utility_issue and ordinance_check == "chicago"
+    show if: essential_services and ordinance_check == "chicago"
   - note: |
       Review your options under [**Chicago's ordinance Page 1**](${url_action('chicago_info')}) and [**Chicago's ordinance Page 2**](${url_action('chicago_options')}) 
-    show if: ordinance_check == "chicago" and not utility_issue
+    show if: ordinance_check == "chicago" and not utility_issue and not essential_services
   - note: |
       Review your options under the [**Residential Tenant Right to Repair Act**](${url_action('illinois_info')})
-    show if: ordinance_check == "illinois"
+    show if: ordinance_check == "illinois" and not utility_issue
   - note: |
-      Review [**your options**](${url_action('illinois_info')})
+      Review [**your options**](${url_action('generic_letter')})
     show if: ordinance_check == "none" or not applicable_law
   - note: |
       Review your options under [**Urbana's ordinance**](${url_action('urbana_info')})
-    show if: ordinance_check == "urbana"
+    show if: ordinance_check == "urbana" and not utility_issue
 ---
 section: Repairs
 id: repair review screen
@@ -1522,34 +1522,34 @@ review:
       ${word(yesno(utility_issue))}
   - note: |
       Review your options under [**Cook County's ordinance Page 1**](${url_action('cook_info')}) and [**Cook County's ordinance Page 2**](${url_action('cook_options')}) 
-    show if: ordinance_check == "cook"
+    show if: ordinance_check == "cook" and not utility_issue
   - note: |
       Review your options under [**DeKalb's municipal code**](${url_action('dekalb_info')})
-    show if: ordinance_check == "dekalb"
+    show if: ordinance_check == "dekalb" and not utility_issue
   - note: |
       Review your options under [**Evanston's ordinance Page 1**](${url_action('evanston_info')}) and [**Evanston's ordinance Page 2**](${url_action('evanston_options')}) 
-    show if: ordinance_check == "evanston"
+    show if: ordinance_check == "evanston" and not utility_issue
   - note: |
       Review your options under [**Oak Park's ordinance**](${url_action('oak_park_info')})
-    show if: ordinance_check == "oak park"
+    show if: ordinance_check == "oak park" and not utility_issue
   - note: |
       Review your options under the [**Mount Prospect Village Code**](${url_action('mount_prospect_info')})
-    show if: ordinance_check == "mount prospect"
+    show if: ordinance_check == "mount prospect" and not utility_issue
   - note: |
       Review your options under [**Chicago's ordinance Page 1**](${url_action('chicago_info')}) and [**Chicago's ordinance Page 2**](${url_action('chicago_utility')}) 
-    show if: utility_issue and ordinance_check == "chicago"
+    show if: essential_services and ordinance_check == "chicago" and not utility_issue
   - note: |
       Review your options under [**Chicago's ordinance Page 1**](${url_action('chicago_info')}) and [**Chicago's ordinance Page 2**](${url_action('chicago_options')}) 
-    show if: ordinance_check == "chicago" and not utility_issue
+    show if: ordinance_check == "chicago" and not utility_issue and not essential_services
   - note: |
       Review your options under the [**Residential Tenant Right to Repair Act**](${url_action('illinois_info')})
-    show if: ordinance_check == "illinois"
+    show if: ordinance_check == "illinois" and not utility_issue
   - note: |
-      Review [**your options**](${url_action('illinois_info')})
+      Review [**your options**](${url_action('generic_letter')})
     show if: ordinance_check == "none" or not applicable_law
   - note: |
       Review your options under [**Urbana's ordinance**](${url_action('urbana_info')})
-    show if: ordinance_check == "urbana"
+    show if: ordinance_check == "urbana" and not utility_issue
   - note: |
       <h4>Repairs</h4>
   - Edit: emergency_check
