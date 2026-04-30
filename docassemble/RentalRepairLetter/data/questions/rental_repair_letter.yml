@@ -537,7 +537,7 @@ code: |
 id: urbana info
 continue button field: urbana_info
 question: |
-  Rental repair in Urbana
+  Rental repairs in Urbana
 subquestion:
   If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the reasonable cost of that repair from your rent. The repairperson cannot be related to you. In Urbana, the deduction can be as much as 2 months' rent.
 
@@ -546,7 +546,7 @@ subquestion:
 id: dekalb info
 continue button field: dekalb_info
 question: |
-  Rental repair in DeKalb
+  Rental repairs in DeKalb
 subquestion: |
   In DeKalb, you may repair and deduct after "reasonably diligent" attempts to notify your landlord of the issue. After you present your landlord with a paid bill, your landlord will have 30 days to reimburse you for reasonable expenses.
 
@@ -555,7 +555,7 @@ subquestion: |
 id: chicago info
 continue button field: chicago_info
 question: |
-  Rental repair in Chicago
+  Rental repairs in Chicago
 subquestion: |
   If your landlord does not repair the issue **within 14 days** for a routine issue or within 24 hours for a disruption of essential services, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you.
 
@@ -594,7 +594,7 @@ subquestion: |
 id: evanston info
 continue button field: evanston_info
 question: |
-  Rental repair in Evanston
+  Rental repairs in Evanston
 subquestion: |
   If your landlord does not repair the issue **within 10 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as necessary.
 
@@ -620,7 +620,7 @@ subquestion: |
 id: oak park info
 continue button field: oak_park_info
 question: |
-  Rental repair in Oak Park
+  Rental repairs in Oak Park
 subquestion: |
   If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
 
@@ -631,7 +631,7 @@ subquestion: |
 id: mount prospect info
 continue button field: mount_prospect_info
 question: |
-  Rental repair in Mount Prospect
+  Rental repairs in Mount Prospect
 subquestion: |
   If the issue does not involve a disruption of essential services and your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you. The deduction can be as high as $500 or half your monthly rent, whichever is less.
 
@@ -648,7 +648,7 @@ subquestion: |
 id: cook county info
 continue button field: cook_info
 question: |
-  Rental repair in Cook County
+  Rental repairs in Cook County
 subquestion: |
   If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you. If the issue is a disruption of essential services, you may repair and deduct if your landlord does not repair the issue as soon as possible.
 
@@ -676,7 +676,7 @@ subquestion: |
 id: illinois info
 continue button field: illinois_info
 question: |
-  Rental repair in Illinois
+  Rental repairs in Illinois
 subquestion: |
   If your landlord does not repair the issue **within 14 days**, you can hire a repairperson yourself, give a copy of the paid bill to your landlord, and deduct the cost of that repair from your rent. The repairperson cannot be related to you. If the issue is an emergency, you can repair and deduct if your landlord does not repair the issue as promptly as the situation demands.
 
@@ -1318,38 +1318,36 @@ review:
     button: |
       **Is the issue a problem with essential services?**
       ${word(yesno(essential_services))}
-  #- note: |
-  #    Click the **Review** button to read about your options under ${which_ordinance}
     show if: not utility_issue
   - note: |
-      Review your options under [**Cook County's ordinance Page 1**](${url_action('cook_info')}) and [**Cook County's ordinance Page 2**](${url_action('cook_options')}) 
+      Review your [**rental repair information**](${url_action('cook_info')}) and [**other options**](${url_action('cook_options')}) 
     show if: ordinance_check == "cook" and not utility_issue
   - note: |
-      Review your options under [**DeKalb's municipal code**](${url_action('dekalb_info')})
+      Review your [**rental repair information**](${url_action('dekalb_info')})
     show if: ordinance_check == "dekalb" and not utility_issue
   - note: |
-      Review your options under [**Evanston's ordinance Page 1**](${url_action('evanston_info')}) and [**Evanston's ordinance Page 2**](${url_action('evanston_options')}) 
+      Review your [**rental repair information**](${url_action('evanston_info')}) and [**other options**](${url_action('evanston_options')}) 
     show if: ordinance_check == "evanston" and not utility_issue
   - note: |
-      Review your options under [**Oak Park's ordinance**](${url_action('oak_park_info')})
+      Review your [**rental repair information**](${url_action('oak_park_info')})
     show if: ordinance_check == "oak park" and not utility_issue
   - note: |
-      Review your options under the [**Mount Prospect Village Code**](${url_action('mount_prospect_info')})
+      Review your [**rental repair information**](${url_action('mount_prospect_info')})
     show if: ordinance_check == "mount prospect" and not utility_issue
   - note: |
-      Review your options under [**Chicago's ordinance Page 1**](${url_action('chicago_info')}) and [**Chicago's ordinance Page 2**](${url_action('chicago_utility')}) 
+      Review your [**rental repair information**](${url_action('chicago_info')}) and [**other options**](${url_action('chicago_utility')}) 
     show if: essential_services and ordinance_check == "chicago"
   - note: |
-      Review your options under [**Chicago's ordinance Page 1**](${url_action('chicago_info')}) and [**Chicago's ordinance Page 2**](${url_action('chicago_options')}) 
+      Review your [**rental repair information**](${url_action('chicago_info')}) and [**other options**](${url_action('chicago_options')}) 
     show if: ordinance_check == "chicago" and not utility_issue and not essential_services
   - note: |
-      Review your options under the [**Residential Tenant Right to Repair Act**](${url_action('illinois_info')})
+      Review your [**rental repair information**](${url_action('illinois_info')})
     show if: ordinance_check == "illinois" and not utility_issue
   - note: |
-      Review [**your options**](${url_action('generic_letter')})
+      Review your [**rental repair information**](${url_action('generic_letter')})
     show if: ordinance_check == "none" or not applicable_law
   - note: |
-      Review your options under [**Urbana's ordinance**](${url_action('urbana_info')})
+      Review your [*rental repair information**](${url_action('urbana_info')})
     show if: ordinance_check == "urbana" and not utility_issue
 ---
 section: Repairs
@@ -1521,34 +1519,34 @@ review:
       **Is the issue a service outage caused by a utility supplier?**
       ${word(yesno(utility_issue))}
   - note: |
-      Review your options under [**Cook County's ordinance Page 1**](${url_action('cook_info')}) and [**Cook County's ordinance Page 2**](${url_action('cook_options')}) 
+      Review your [**rental repair information**](${url_action('cook_info')}) and [**other options**](${url_action('cook_options')}) 
     show if: ordinance_check == "cook" and not utility_issue
   - note: |
-      Review your options under [**DeKalb's municipal code**](${url_action('dekalb_info')})
+      Review your [**rental repair information**](${url_action('dekalb_info')})
     show if: ordinance_check == "dekalb" and not utility_issue
   - note: |
-      Review your options under [**Evanston's ordinance Page 1**](${url_action('evanston_info')}) and [**Evanston's ordinance Page 2**](${url_action('evanston_options')}) 
+      Review your [**rental repair information**](${url_action('evanston_info')}) and [**other options**](${url_action('evanston_options')}) 
     show if: ordinance_check == "evanston" and not utility_issue
   - note: |
-      Review your options under [**Oak Park's ordinance**](${url_action('oak_park_info')})
+      Review your [**rental repair information**](${url_action('oak_park_info')})
     show if: ordinance_check == "oak park" and not utility_issue
   - note: |
-      Review your options under the [**Mount Prospect Village Code**](${url_action('mount_prospect_info')})
+      Review your [**rental repair information**](${url_action('mount_prospect_info')})
     show if: ordinance_check == "mount prospect" and not utility_issue
   - note: |
-      Review your options under [**Chicago's ordinance Page 1**](${url_action('chicago_info')}) and [**Chicago's ordinance Page 2**](${url_action('chicago_utility')}) 
-    show if: essential_services and ordinance_check == "chicago" and not utility_issue
+      Review your [**rental repair information**](${url_action('chicago_info')}) and [**other options**](${url_action('chicago_utility')}) 
+    show if: essential_services and ordinance_check == "chicago"
   - note: |
-      Review your options under [**Chicago's ordinance Page 1**](${url_action('chicago_info')}) and [**Chicago's ordinance Page 2**](${url_action('chicago_options')}) 
+      Review your [**rental repair information**](${url_action('chicago_info')}) and [**other options**](${url_action('chicago_options')}) 
     show if: ordinance_check == "chicago" and not utility_issue and not essential_services
   - note: |
-      Review your options under the [**Residential Tenant Right to Repair Act**](${url_action('illinois_info')})
+      Review your [**rental repair information**](${url_action('illinois_info')})
     show if: ordinance_check == "illinois" and not utility_issue
   - note: |
-      Review [**your options**](${url_action('generic_letter')})
+      Review your [**rental repair information**](${url_action('generic_letter')})
     show if: ordinance_check == "none" or not applicable_law
   - note: |
-      Review your options under [**Urbana's ordinance**](${url_action('urbana_info')})
+      Review your [*rental repair information**](${url_action('urbana_info')})
     show if: ordinance_check == "urbana" and not utility_issue
   - note: |
       <h4>Repairs</h4>
