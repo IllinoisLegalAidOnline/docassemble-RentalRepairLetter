@@ -46,7 +46,6 @@ code: |
   nav.set_section('section_property')
   #emergency_check
   rental_property.address
-  rental_property.county_correct
   if rental_property.state != "IL":
     out_of_state_kickout
   set_progress(20)
@@ -164,7 +163,7 @@ subquestion: |
 
   This program helps you make a letter asking your landlord to repair an issue with your home. The letter can also tell your landlord about your legal rights as a tenant.
   
-  For step-by-step instructions, see ILAO's how-to article, [**Requesting rental repairs**](https://www.illinoislegalaid.org/node/83606).
+  For step-by-step instructions, see ILAO's article on [**requesting rental repairs**](https://www.illinoislegalaid.org/node/83606).
 field: sees_nav_bar
 ---
 id: instructions
@@ -197,9 +196,9 @@ question: |
 subquestion: |
   In Illinois, renters have a right to a habitable unit. This means that your landlord must keep your rental unit in a livable and safe condition. Your landlord must also maintain all services your lease agreement says they will take care of.
 
-  Landlords have to follow local building and maintenance codes. They must make repairs in a timely manner. Learn more about your [**rental repair rights**](https://illinoislegalaid.org/node/188116).
+  Landlords have to follow local building and maintenance codes. They must make repairs in a timely manner. To learn more, see ILAO's [**rental repair rights and landlord access FAQ**](https://illinoislegalaid.org/node/188116).
   
-  Landlords may have to provide pest control. Some infestations of pests and bugs can make a home unlivable. To learn more about pest control, read ILAO's article on [**dealing with pests in rental housing**](https://illinoislegalaid.org/node/187141).
+  Landlords may have to provide pest control. Some infestations of pests and bugs can make a home unlivable. To learn more about pest control, see ILAO's [**dealing with pests in rental housing FAQ**](https://illinoislegalaid.org/node/187141).
 ---
 id: major issues overview
 continue button field: about_major_issues
@@ -227,7 +226,7 @@ subquestion: |
 
   ${collapse_template(who_repairs)}
   
-  To learn more, read ILAO's article on [**requesting rental repairs**](https://illinoislegalaid.org/node/83606).
+  To learn more, see ILAO's article on [**requesting rental repairs**](https://illinoislegalaid.org/node/83606).
 
   **Note:** The "repair and deduct" option has specific rules based on where you live. If you choose to repair and deduct, your landlord may decide to try and evict you. You should [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before deducting the cost of a repair from your rent.
 ---
@@ -276,11 +275,6 @@ fields:
       states_list()
   - ZIP code: rental_property.zip
   - County: rental_property.county
-  #- County: rental_property.county
-  #  code: |
-  #    court_list._load_courts()["address_county"].unique()
-validation code: |
-  undefine('rental_property.county_correct')
 ---
 on change: 
   rental_property.city: |
@@ -495,7 +489,7 @@ code: |
       specific_citation = "Mount Prospect's Code of Ordinances, chapter 23, article 18.08"
       ordinance_check = "mount prospect"
     elif rental_property.city.lower() == "dekalb":
-      which_ordinance = "the City of DeKalb’s municipal code, chapter 10 "
+      which_ordinance = "the City of DeKalb’s municipal code, chapter 10"
       specific_citation = "the City of DeKalb’s municipal code, chapter 10-15"
       ordinance_check = "dekalb"
     elif end_in_county(rental_property.county).lower() == "cook county":
@@ -572,7 +566,7 @@ subquestion: |
 
   * You could pay a reduced monthly rent that reflects how much the issue has lowered the value of your apartment.
   * If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed.
-  * If you are having an issue with essential services, you could end the rental agreement if your landlord does not make the necessary repairs. If you do so, you would have to move out of your apartment within 30 days. To learn more, read ILAO's article on [**negotiating a move-out agreement**](https://illinoislegalaid.org/node/187931).
+  * If you are having an issue with essential services, you could end the rental agreement if your landlord does not make the necessary repairs. If you do so, you would have to move out of your apartment within 30 days. To learn more, see ILAO's article on [**negotiating a move-out agreement without going to court**](https://illinoislegalaid.org/node/187931).
 
   **Note:** These options have specific requirements that could affect your rental agreement. [**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you advice. 
   
@@ -611,7 +605,7 @@ subquestion: |
 
   * You could pay a reduced monthly rent that reflects how much the issue has lowered the value of your apartment.
   * If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed. You may be able to recover some of the cost of the substitute housing from your landlord.
-  * If you are having an issue with essential services, you could end the rental agreement if your landlord does not make the necessary repairs within 7 days. To learn more, read ILAO's article on [**negotiating a move-out agreement**](https://illinoislegalaid.org/node/187931).
+  * If you are having an issue with essential services, you could end the rental agreement if your landlord does not make the necessary repairs within 7 days. To learn more, see ILAO's article on [**negotiating a move-out agreement without going to court**](https://illinoislegalaid.org/node/187931).
 
   **Note:** These options have specific requirements that could affect your rental agreement. [**Cook County Legal Aid for Housing and Debt**](https://www.cookcountylegalaid.org/) may be able to give you advice.
   
@@ -665,7 +659,7 @@ subquestion: |
 
   Here are some of your options:
 
-  * You could end the rental agreement if your landlord does not make the necessary repairs within 14 days. If you do so, you would have to move out either within a month or by the end of the next rental period, whichever is later. To learn more, read ILAO's article on [**negotiating a move-out agreement**](https://illinoislegalaid.org/node/187931).
+  * You could end the rental agreement if your landlord does not make the necessary repairs within 14 days. If you do so, you would have to move out either within a month or by the end of the next rental period, whichever is later. To learn more, see ILAO's article on [**negotiating a move-out agreement without going to court**](https://illinoislegalaid.org/node/187931).
   * You could pay a reduced monthly rent that reflects how much the issue has lowered the value of your apartment.
   * If you are having an issue with essential services, you could get substitute housing. If you do so, you would not have to pay rent until the issue is fixed. You may be able to recover some of the cost of the substitute housing from your landlord.
 
@@ -921,7 +915,7 @@ subquestion: |
   % if ordinance_check == "chicago":
   Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) or learn more about [**Chicago's Department of Housing's services for renters**](https://www.chicago.gov/city/en/depts/doh/provdrs/renters/svcs.html) before taking action.
   % elif ordinance_check == "dekalb":
-  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) or call the City of DeKalb's Code Enforcement Division at (815) 748-2070 before taking action.
+  Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) or <a href="tel:+18157482070">**call the City of DeKalb's Code Enforcement Division at (815) 748-2070**</a> before taking action.
   % elif ordinance_check == "oak park":
   Other options besides rent deduction may be listed in your letter. Since these options can affect your rental agreement, you may want to talk to a lawyer using [**Get Legal Help**](https://www.illinoislegalaid.org/get-legal-help) before taking action.
 
@@ -1135,7 +1129,7 @@ continue button field: dekalb_routine_after
 question: |
   After sending your letter
 subquestion: |
-  After getting the letter, your landlord will have to make the repair in 14 days. After that time limit, you should call the City of DeKalb's Code Enforcement Division at (815) 748-2070 and ask to have an inspector come to your apartment.
+  After getting the letter, your landlord will have to make the repair in 14 days. After that time limit, you should <a href="tel:+18157482070">**call the City of DeKalb's Code Enforcement Division at (815) 748-2070**</a> and ask to have an inspector come to your apartment.
 ---
 id: generic after
 continue button field: generic_after
