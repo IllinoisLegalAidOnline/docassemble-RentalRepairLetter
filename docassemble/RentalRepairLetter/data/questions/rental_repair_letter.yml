@@ -48,6 +48,7 @@ code: |
   rental_property.address
   if rental_property.state != "IL":
     out_of_state_kickout
+  rental_property.county_correct
   set_progress(20)
   if not live_in_property:
     reside_kickout
@@ -275,6 +276,8 @@ fields:
       states_list()
   - ZIP code: rental_property.zip
   - County: rental_property.county
+validation code: |
+  undefine('rental_property.county_correct')
 ---
 on change: 
   rental_property.city: |
